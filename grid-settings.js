@@ -82,8 +82,7 @@ const sectionTitle = (title, content) => `<section class="property-section"><h3>
 const stepper = (label, key, value, { unit = 'px', min = 0, max = 128, step = 1 } = {}) => `<div class="property-stepper"><span>${label}</span><div class="property-stepper__control"><span class="property-number-field"><input type="number" inputmode="numeric" value="${key === 'photoSize' && !value ? '' : value}" placeholder="${key === 'photoSize' ? 'Full' : ''}" min="${min}" max="${max}" step="${step}" data-number-input="${key}" aria-label="${label}">${unit ? `<small>${unit.toLowerCase()}</small>` : ''}</span><span class="property-stepper__actions"><button data-step="${key}" data-delta="-${step}" aria-label="Decrease ${label}">${icon('minus')}</button><button data-step="${key}" data-delta="${step}" data-min="${min}" data-max="${max}" aria-label="Increase ${label}">${icon('plus')}</button></span></div></div>`
 const selectControl = (selectMarkup, variant = 'compact') => `<span class="select-control select-control--${variant}">${selectMarkup}${icon('chevrons-up-down')}</span>`
 const alignmentToggle = (label, value, attribute = 'data-align') => `<div class="property-align"><span>${label}</span><div class="segmented-control segmented-control--sm alignment-toggle" role="group" aria-label="${label}">${['left', 'center', 'right'].map(option => `<button class="segmented-control__segment ${value === option ? 'is-active' : ''}" ${attribute}="${option}" aria-label="Align ${option}">${icon(`align-${option}`)}</button>`).join('')}</div></div>`
-const visibility = (key, label, required = false) => `<div class="property-visibility ${state.selectedField === key ? 'is-focused' : ''}" draggable="true" data-field-order="${key}" aria-current="${state.selectedField === key ? 'true' : 'false'}"><span class="field-drag-handle" aria-hidden="true">${icon('grip-vertical')}</span><span>${label}${required ? '<em>required</em>' : ''}</span><button class="structure-row__eye" data-prop-visibility="${key}" aria-label="Toggle ${label} visibility">${visibilityIcon(isVisible(key))}</button></div>`
-const avatarRange = (label, key, value, { min, max, step = 1, unit = 'PX' } = {}) => `<div class="avatar-range"><span>${label}</span><div class="avatar-range__control"><span class="property-number-field"><input type="number" inputmode="numeric" min="${min}" max="${max}" step="${step}" value="${value}" data-avatar-number="${key}" aria-label="${label}"><small>${unit}</small></span><input type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-avatar-range="${key}" aria-label="${label}"></div></div>`
+const avatarRange = (label, key, value, { min, max, step = 1, unit = 'PX' } = {}) => `<div class="avatar-range"><span>${label}</span><div class="avatar-range__control"><span class="property-number-field"><input type="number" inputmode="numeric" min="${min}" max="${max}" step="${step}" value="${value}" data-avatar-number="${key}" aria-label="${label}"><small>${unit}</small></span><input type="range" min="${min}" max="${max}" step="${step}" value="${value}" style="--range-progress:${Math.max(0, Math.min(100, ((Number(value) - min) / (max - min)) * 100))}%;" data-avatar-range="${key}" aria-label="${label}"></div></div>`
 const cardFieldLabels = { photo: ['Photo'], fullName: ['Full name', true], jobTitle: ['Job title'], email: ['Email'], phone: ['Phone'], cellphone: ['Cellphone'], bio: ['Bio'] }
 const textFormatControl = key => {
   const labels = { bold: 'Bold', italic: 'Italic', underline: 'Underline', strike: 'Strikethrough' }
@@ -94,14 +93,8 @@ const colorControl = (label, key, value, opacityKey = null, opacity = 1) => {
   return `<div class="property-color"><span>${label}</span><button class="property-color-trigger" data-open-color="${key}" data-opacity-key="${opacityKey || ''}" aria-expanded="${state.openColorPicker === key}" aria-label="Edit ${label} color"><i style="--swatch-color:${colorWithOpacity(value, opacity)}"></i><code>${value.toUpperCase()}</code>${opacityKey ? `<small>${Math.round(opacity * 100)}%</small>` : ''}</button>${state.openColorPicker === key ? `<div class="color-picker" data-color-picker="${key}"><div class="color-picker__plane" data-color-plane="${key}" style="--picker-hue:${hsv.h};"><i style="left:${hsv.s}%;top:${100 - hsv.v}%;"></i></div><label class="color-picker__range color-picker__hue"><span>Hue</span><input type="range" min="0" max="360" value="${Math.round(hsv.h)}" data-color-hue="${key}"></label>${opacityKey ? `<label class="color-picker__range color-picker__alpha"><span>Opacity</span><input type="range" min="0" max="100" value="${Math.round(opacity * 100)}" data-color-alpha="${opacityKey}" data-color-key="${key}"></label>` : ''}<div class="color-picker__value"><button type="button" data-eyedropper="${key}" aria-label="Pick a color from the screen">${icon('pipette')}</button><input value="${value.toUpperCase()}" data-color-hex="${key}" aria-label="${label} hex value">${opacityKey ? `<output>${Math.round(opacity * 100)}%</output>` : ''}</div></div>` : ''}</div>`
 }
 
-function pageSettingsBody({ modal = false } = {}) {
-  const override = key => modal && state.templateOverrides.has(key) ? '<span class="override-dot property-override"></span>' : ''
+function pageSettingsBody() {
   return `
-    ${sectionTitle('Content', `
-      <label class="compact-content-field"><span>Heading</span>${override('heading')}<input value="${esc(state.headingText)}" data-page-content="headingText"></label>
-      <label class="compact-content-field"><span>Sub-head</span>${override('subhead')}<input value="${esc(state.subheadText)}" data-page-content="subheadText"></label>
-      <label class="compact-content-field"><span>Description</span>${override('description')}<textarea data-page-content="descriptionText">${esc(state.descriptionText)}</textarea></label>
-    `)}
     ${sectionTitle('Grid', `${stepper('Columns', 'columns', state.columns, { unit: '', min: 1, max: 4 })}${stepper('Gap', 'gridGap', state.gridGap, { min: 0, max: 96 })}${stepper('Padding', 'gridPadding', state.gridPadding, { min: 0, max: 128 })}`)}
     ${sectionTitle('Style', `${colorControl('Color', 'pageBackground', state.pageBackground, 'pageBackgroundOpacity', state.pageBackgroundOpacity)}${stepper('Heading size', 'headingSize', state.headingSize, { min: 20, max: 64, step: 2 })}${alignmentToggle('Align', state.alignment)}`)}
   `
@@ -113,7 +106,6 @@ function gridSettingsBody() {
 
 function cardSettingsBody() {
   return `
-    ${sectionTitle('Fields', `<p class="help-text card-template-note">Drag to set the shared field order.</p>${state.cardFieldOrder.map(key => visibility(key, ...cardFieldLabels[key])).join('')}`)}
     ${sectionTitle('Avatar position', `<div class="segmented-control segmented-control--sm avatar-position-control" role="group" aria-label="Avatar position">${[['top','Top'],['left','Left'],['none','None']].map(([key, label]) => `<button class="segmented-control__segment ${state.avatarPosition === key ? 'is-active' : ''}" data-avatar-position="${key}" title="Avatar ${label.toLowerCase()}">${label}</button>`).join('')}</div>${avatarRange('Avatar radius', 'avatarRadius', state.avatarRadius, { min: 0, max: 50, unit: '%' })}${avatarRange('Avatar size', 'avatarSize', state.avatarSize, { min: 25, max: 200, step: 5, unit: '%' })}`)}
     ${sectionTitle('Surface', `${colorControl('Background', 'cardBackground', state.cardBackground, 'cardBackgroundOpacity', state.cardBackgroundOpacity)}${colorControl('Border color', 'cardBorderColor', state.cardBorderColor, 'cardBorderOpacity', state.cardBorderOpacity)}${stepper('Border width', 'cardBorderWidth', state.cardBorderWidth, { unit: 'px', min: 0, max: 8 })}<label class="property-select"><span>Border style</span>${selectControl(`<select data-card-input="cardBorderStyle"><option ${state.cardBorderStyle === 'solid' ? 'selected' : ''}>solid</option><option ${state.cardBorderStyle === 'dashed' ? 'selected' : ''}>dashed</option><option ${state.cardBorderStyle === 'none' ? 'selected' : ''}>none</option></select>`)}</label>${stepper('Corner radius', 'cardRadius', state.cardRadius, { min: 0, max: 32 })}<label class="property-select"><span>Elevation</span>${selectControl(`<select data-card-input="cardShadow"><option value="none" ${state.cardShadow === 'none' ? 'selected' : ''}>None</option><option value="soft" ${state.cardShadow === 'soft' ? 'selected' : ''}>Soft</option><option value="medium" ${state.cardShadow === 'medium' ? 'selected' : ''}>Medium</option></select>`)}</label>`)}
     ${sectionTitle('Layout', `${stepper('Card padding', 'cardPadding', state.cardPadding, { min: 8, max: 48 })}${alignmentToggle('Alignment', state.cardTextAlign, 'data-card-align')}`)}
@@ -146,6 +138,16 @@ function applyTextStyle(node, key) {
   node.style.fontStyle = state[`${key}Italic`] ? 'italic' : ''
   node.style.textDecoration = decoration
   node.style.backgroundColor = colorWithOpacity(state[config.background], state[config.backgroundOpacity])
+}
+
+function syncAvatarRangeStyles() {
+  document.querySelectorAll('[data-avatar-range]').forEach(input => {
+    const min = Number(input.min)
+    const max = Number(input.max)
+    const value = Number(input.value)
+    const progress = max > min ? Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100)) : 0
+    input.style.setProperty('--range-progress', `${progress}%`)
+  })
 }
 
 function applyBuilderSettings() {
@@ -227,6 +229,7 @@ function applyBuilderSettings() {
       control.value = state.avatarSize
     })
   }
+  syncAvatarRangeStyles()
 }
 
 function fitCardsToLetterPage() {
@@ -680,7 +683,7 @@ document.addEventListener('change', event => {
 }, true)
 
 document.addEventListener('dragstart', event => {
-  const field = event.target.closest('[data-field-order]')
+  const field = event.target.closest('#structure-list [data-field-order]')
   if (!field) return
   state.draggedCardField = field.dataset.fieldOrder
   event.dataTransfer.effectAllowed = 'move'
@@ -689,16 +692,16 @@ document.addEventListener('dragstart', event => {
 })
 
 document.addEventListener('dragover', event => {
-  const field = event.target.closest('[data-field-order]')
+  const field = event.target.closest('#structure-list [data-field-order]')
   if (!field || !state.draggedCardField || field.dataset.fieldOrder === state.draggedCardField) return
   event.preventDefault()
   event.dataTransfer.dropEffect = 'move'
-  document.querySelectorAll('[data-field-order].is-drop-target').forEach(node => node.classList.remove('is-drop-target'))
+  document.querySelectorAll('#structure-list [data-field-order].is-drop-target').forEach(node => node.classList.remove('is-drop-target'))
   field.classList.add('is-drop-target')
 })
 
 document.addEventListener('drop', event => {
-  const field = event.target.closest('[data-field-order]')
+  const field = event.target.closest('#structure-list [data-field-order]')
   if (!field || !state.draggedCardField) return
   event.preventDefault()
   const from = state.cardFieldOrder.indexOf(state.draggedCardField)
@@ -714,7 +717,7 @@ document.addEventListener('drop', event => {
 
 document.addEventListener('dragend', () => {
   state.draggedCardField = null
-  document.querySelectorAll('[data-field-order].is-dragging,[data-field-order].is-drop-target').forEach(node => node.classList.remove('is-dragging', 'is-drop-target'))
+  document.querySelectorAll('#structure-list [data-field-order].is-dragging,#structure-list [data-field-order].is-drop-target').forEach(node => node.classList.remove('is-dragging', 'is-drop-target'))
 })
 
 render()
