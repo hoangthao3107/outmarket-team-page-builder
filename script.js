@@ -66,12 +66,23 @@ function renderStructure() {
   // Description. Keep only non-text content slots (photo/card/page/grid)
   // represented by their specific icons.
   const structureIcons = { page: 'file-text', heading: 'type', subhead: 'type', description: 'type', grid: 'layout-grid', card: 'circle-user', photo: 'image', fullName: 'type', jobTitle: 'type', email: 'type', phone: 'type', cellphone: 'type', bio: 'type' }
-  document.getElementById('structure-list').innerHTML = structure.map(([key, label, level]) => `
-    <button class="structure-row ${key === 'card' ? (state.selected === 'card' && !state.selectedField && !state.selectedMember ? 'is-selected' : '') : cardFieldKeys.includes(key) ? (state.selectedField === key && !state.selectedMember ? 'is-selected' : '') : (key !== 'page' && state.selected === key && !state.selectedMember ? 'is-selected' : '')} ${!isVisible(key) ? 'is-hidden' : ''}" data-structure="${key}" style="--level:${level}">
+  const cardIndex = structure.findIndex(([key]) => key === 'card')
+  const orderedCardFields = (state.cardFieldOrder || cardFieldKeys)
+    .map(key => structure.find(row => row[0] === key))
+    .filter(Boolean)
+  const structureRows = [...structure.slice(0, cardIndex + 1), ...orderedCardFields]
+  document.getElementById('structure-list').innerHTML = structureRows.map(([key, label, level]) => {
+    const isCardField = cardFieldKeys.includes(key)
+    const dragAttributes = isCardField ? `draggable="true" data-field-order="${key}"` : ''
+    const dragHandle = isCardField ? `<span class="structure-row__drag-handle" aria-hidden="true">${icon('grip-vertical')}</span>` : ''
+    return `
+    <button class="structure-row ${key === 'card' ? (state.selected === 'card' && !state.selectedField && !state.selectedMember ? 'is-selected' : '') : isCardField ? (state.selectedField === key && !state.selectedMember ? 'is-selected' : '') : (key !== 'page' && state.selected === key && !state.selectedMember ? 'is-selected' : '')} ${!isVisible(key) ? 'is-hidden' : ''}" data-structure="${key}" ${dragAttributes} style="--level:${level}">
+      ${dragHandle}
       <span class="structure-row__branch">${icon(structureIcons[key])}</span>
       <span class="structure-row__label">${label}</span>
       ${key === 'page' || key === 'card' ? '' : `<span class="structure-row__eye" data-visibility="${key}" role="button" aria-label="Toggle ${label} visibility">${visibilityIcon(isVisible(key))}</span>`}
-    </button>`).join('')
+    </button>`
+  }).join('')
 }
 function renderMembers() {
   document.getElementById('member-total').textContent = members.length
@@ -128,7 +139,11 @@ function propertiesMarkup({modal=false}={}) {
     const backgroundKey = `${elementKey}Background`
     const backgroundOpacityKey = `${backgroundKey}Opacity`
     const fontSizeControl = typeof stepper === 'function' ? stepper('Font size', fontSizeKey, fontSize, { min: elementKey === 'heading' ? 20 : 10, max: elementKey === 'heading' ? 64 : 32 }) : field('Font size', fontSize, fontSizeKey, 'number')
-    content=section('Content',`<label class="toggle-row"><span>Show ${selected}</span><input type="checkbox" data-field="elementVisibility" ${visibility ? 'checked' : ''}><i></i></label>`)+section('Style',`${field('Top margin','16','marginTop','number')}${field('Bottom margin','16','marginBottom','number')}<label class="field"><span>Alignment</span>${propertySelect('alignment',['Left','Center'],'Left')}</label>${fontSizeControl}${colorControl('Text color',colorKey,state[colorKey],colorOpacityKey,state[colorOpacityKey])}${changed(colorKey)}${colorControl('Text background',backgroundKey,state[backgroundKey],backgroundOpacityKey,state[backgroundOpacityKey])}${changed(backgroundKey)}${typeof textFormatControl === 'function' ? textFormatControl(elementKey) : ''}`)
+    const textContentKey = elementKey === 'heading' ? 'headingText' : elementKey === 'subhead' ? 'subheadText' : 'descriptionText'
+    const textContentControl = elementKey === 'description'
+      ? `<label class="compact-content-field"><span>${selected}</span><textarea data-page-content="${textContentKey}">${esc(state[textContentKey])}</textarea></label>`
+      : `<label class="compact-content-field"><span>${selected}</span><input value="${esc(state[textContentKey])}" data-page-content="${textContentKey}"></label>`
+    content=section('Content',`<label class="toggle-row"><span>Show ${selected}</span><input type="checkbox" data-field="elementVisibility" ${visibility ? 'checked' : ''}><i></i></label>${textContentControl}`)+section('Style',`${field('Top margin','16','marginTop','number')}${field('Bottom margin','16','marginBottom','number')}<label class="field"><span>Alignment</span>${propertySelect('alignment',['Left','Center'],'Left')}</label>${fontSizeControl}${colorControl('Text color',colorKey,state[colorKey],colorOpacityKey,state[colorOpacityKey])}${changed(colorKey)}${colorControl('Text background',backgroundKey,state[backgroundKey],backgroundOpacityKey,state[backgroundOpacityKey])}${changed(backgroundKey)}${typeof textFormatControl === 'function' ? textFormatControl(elementKey) : ''}`)
   }
   const modalTeamSelect = propertySelectControl(`<select id="modal-team-select">${['Marketing Team','Client Success Team','Executive Team'].map(value => `<option ${state.modalTeam === value ? 'selected' : ''}>${value}</option>`).join('')}</select>`, 'field')
   return `<div class="properties-head">${modal ? `<label class="team-selector"><span>Source team</span>${modalTeamSelect}<div class="override-summary ${state.templateOverrides.size ? '' : 'is-clean'}">${state.templateOverrides.size ? `${state.templateOverrides.size} changes from this proposal only <button id="reset-all">Reset all</button>` : 'No changes from this proposal'}</div>` : ''}<p class="breadcrumb">${crumb}</p><h2>${esc(selected)}</h2></div><div class="properties-scroll">${content}</div>`
