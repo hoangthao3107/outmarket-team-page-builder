@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Standard Template · Outmarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./host-shell.css" />
+    <style>[hidden]{display:none!important}</style>
+  </head>
+  <body class="template-demo-body" data-page="template-demo">
+    <main class="app-shell figma-shell template-demo-shell" aria-label="Standard template editor">
+      <aside class="figma-nav" aria-label="Primary navigation">
+        <div class="figma-logo"><img src="./assets/outmarket-sidebar-mark.svg" alt="Outmarket"></div>
+        <div class="figma-nav__rule"></div>
+        <div class="figma-nav__group">
+          <button aria-label="Workspace"><i data-lucide="layout-dashboard"></i></button>
+          <button aria-label="Documents"><i data-lucide="file-text"></i></button>
+          <button aria-label="Benefits"><i data-lucide="heart-handshake"></i></button>
+          <button aria-label="Policies"><i data-lucide="shield-check"></i></button>
+          <button aria-label="Teams" class="is-active"><i data-lucide="users-round"></i></button>
+          <button aria-label="Assistant"><i data-lucide="sparkles"></i></button>
+          <button aria-label="Checklist"><i data-lucide="list-checks"></i></button>
+        </div>
+        <div class="figma-nav__rule"></div>
+        <div class="figma-nav__group">
+          <button aria-label="Messages"><i data-lucide="messages-square"></i></button>
+          <button aria-label="360 view"><i data-lucide="circle-gauge"></i></button>
+          <button aria-label="Analytics"><i data-lucide="chart-no-axes-combined"></i></button>
+          <button aria-label="Reports"><i data-lucide="chart-column-big"></i></button>
+          <button aria-label="Opportunities"><i data-lucide="diamond"></i></button>
+          <button aria-label="Data"><i data-lucide="database"></i></button>
+        </div>
+        <div class="figma-nav__rule"></div>
+        <button class="figma-nav__bottom" aria-label="Dashboard"><i data-lucide="panels-top-left"></i></button>
+      </aside>
+
+      <section class="figma-content">
+        <header class="figma-header">
+          <div class="figma-breadcrumbs"><span>Templates</span><b><i data-lucide="chevron-right"></i></b><strong>Standard Template</strong></div>
+          <div class="figma-header__actions">
+            <button class="template-help"><i data-lucide="circle-help"></i><span>Help</span><kbd>⌘K</kbd></button>
+            <button aria-label="Feedback"><i data-lucide="audio-lines"></i></button>
+            <button class="template-feedback">Feedback</button>
+            <button aria-label="Saved items"><i data-lucide="bookmark"></i></button>
+            <button aria-label="Notes"><i data-lucide="sticky-note"></i></button>
+            <button aria-label="Notifications"><i data-lucide="bell"></i></button>
+            <span class="figma-user">TL</span>
+          </div>
+        </header>
+        <header class="function-header template-demo-header">
+          <h1>Standard Template <i data-lucide="pencil"></i></h1>
+          <div class="template-demo-header__actions">
+            <span class="template-demo-status"><i data-lucide="cloud"></i> Progress saved 16s ago</span>
+            <button class="icon-button" aria-label="Undo"><i data-lucide="undo-2"></i></button>
+            <button class="icon-button" aria-label="Redo"><i data-lucide="redo-2"></i></button>
+            <button class="icon-button" aria-label="Add block"><i data-lucide="file-plus-2"></i></button>
+            <button class="button button--danger template-delete"><i data-lucide="trash-2"></i> Delete</button>
+            <button class="button button--primary"><i data-lucide="save"></i> Save</button>
+          </div>
+        </header>
+
+        <section class="template-demo-workspace">
+          <article class="template-block" aria-label="Meet Your Team block">
+            <header class="template-block__head">
+              <button class="template-block__drag icon-button" aria-label="Reorder block"><i data-lucide="grip-vertical"></i></button>
+              <span class="template-block__badge">2</span>
+              <strong class="template-block__title">Meet Your Team</strong>
+              <span class="template-block__pill">Block</span>
+              <button class="icon-button" aria-label="Edit block name"><i data-lucide="pencil"></i></button>
+              <span class="template-block__spacer"></span>
+              <button id="open-template" class="template-block__configure"><i data-lucide="settings-2"></i> Configure</button>
+              <span class="template-block__divider" aria-hidden="true"></span>
+              <button class="template-block__done"><i data-lucide="check"></i> Done</button>
+            </header>
+            <div class="template-block__toolbar" aria-label="Block toolbar">
+              <button class="icon-button" aria-label="Undo"><i data-lucide="undo-2"></i></button>
+              <button class="icon-button" aria-label="Redo"><i data-lucide="redo-2"></i></button>
+              <span class="template-toolbar-separator"></span>
+              <button class="icon-button" aria-label="Zoom out"><i data-lucide="zoom-out"></i></button><span class="template-zoom">100%</span><button class="icon-button" aria-label="Zoom in"><i data-lucide="zoom-in"></i></button>
+              <span class="template-toolbar-separator"></span>
+              <button class="icon-button is-active" aria-label="Link"><i data-lucide="link-2"></i></button>
+              <button class="icon-button" aria-label="List"><i data-lucide="list"></i></button>
+              <button class="icon-button" aria-label="Ruler"><i data-lucide="ruler"></i></button>
+              <button class="icon-button" aria-label="Fill"><i data-lucide="square"></i></button>
+              <button class="icon-button" aria-label="Image"><i data-lucide="image"></i></button>
+              <button class="icon-button" aria-label="Grid"><i data-lucide="grid-2x2"></i></button>
+            </div>
+            <div class="template-block__canvas"><div class="template-demo-block-preview"><div class="team-page template-demo-team-page"></div></div></div>
+          </article>
+          <div class="template-demo-tools" aria-label="Insert tools">
+            <button class="icon-button" aria-label="Text"><i data-lucide="type"></i></button>
+            <button class="icon-button" aria-label="Shape"><i data-lucide="shapes"></i></button>
+            <button class="icon-button" aria-label="Image"><i data-lucide="image"></i></button>
+            <button class="icon-button" aria-label="Grid"><i data-lucide="grid-2x2"></i></button>
+            <button class="icon-button" aria-label="Code"><i data-lucide="braces"></i></button>
+            <button class="icon-button" aria-label="Layers"><i data-lucide="layers-3"></i></button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- Fallback targets for the shared controller. The visible modal below owns
+         the real builder targets, so every interaction is the same as the main
+         team-page builder rather than a second, simplified implementation. -->
+    <div class="template-demo-runtime" aria-hidden="true">
+      <div id="template-preview"></div><div id="template-properties"></div>
+    </div>
+
+    <div id="template-modal" class="modal-layer" hidden>
+      <section class="template-modal" role="dialog" aria-modal="true" aria-labelledby="template-modal-title">
+        <header class="template-modal__head"><div><p class="eyebrow">PROPOSAL TEMPLATE</p><h2 id="template-modal-title">Configure team page</h2></div><button class="icon-button" data-close-modal aria-label="Close modal"><i data-lucide="x"></i></button></header>
+        <div class="template-modal__body template-modal__builder-body">
+          <aside class="left-panel template-modal__left" aria-label="Builder structure and members">
+            <section class="structure-section">
+              <div class="section-title"><span>Structure</span><span class="section-title__note">design slots</span></div>
+              <div id="structure-list" class="structure-list"></div>
+            </section>
+            <section class="members-section">
+              <div class="section-title"><span>Members</span><span id="member-total" class="count">6</span></div>
+              <div class="team-selector-control">
+                <button id="team-selector-toggle" class="team-selector-toggle" aria-expanded="false"><span id="active-team-name">Marketing Team</span><i data-lucide="chevrons-up-down"></i></button>
+                <div id="team-selector-menu" class="team-selector-menu" hidden></div>
+              </div>
+              <div id="members-list" class="members-list"></div>
+              <div class="member-actions">
+                <div class="add-member-wrap"><button id="add-placeholder" class="add-member"><i data-lucide="plus"></i> Add member</button></div>
+                <div id="team-save-control" class="team-save-control" hidden>
+                  <button id="team-save-toggle" class="team-save-toggle" aria-expanded="false"><i data-lucide="save"></i><span>Save team</span></button>
+                  <div id="team-save-menu" class="team-save-menu" hidden></div>
+                </div>
+              </div>
+            </section>
+          </aside>
+          <section class="canvas template-modal__canvas" id="canvas" aria-label="Team page canvas">
+            <div class="canvas-toolbar"><span>Team page</span><span class="canvas-toolbar__right">100%</span></div>
+            <div class="canvas-scroll"><article class="page-sheet" id="page-sheet"><div id="team-page" class="team-page"></div></article></div>
+            <div id="card-caption" class="template-caption" hidden></div>
+          </section>
+          <aside id="properties-panel" class="properties-panel template-modal__properties" data-template-panel="true" aria-label="Properties"></aside>
+        </div>
+<footer class="template-modal__foot"><div><button class="button button--ghost" data-close-modal>Cancel</button><button class="button button--primary">Save</button></div></footer>
+      </section>
+    </div>
+    <div id="confirm-dialog" class="confirm-layer" hidden><section class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><span class="confirm-icon">!</span><h2 id="confirm-title">Change source team?</h2><p>Member-level changes made for this proposal will reset when you change teams.</p><div><button class="button button--ghost" id="cancel-team-change">Cancel</button><button class="button button--danger" id="confirm-team-change">Change team</button></div></section></div>
+    <script src="./assets/vendor/lucide.min.js"></script>
+    <script src="./script.js"></script>
+    <script src="./grid-settings.js"></script>
+  </body>
+</html>

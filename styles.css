@@ -1,0 +1,1543 @@
+:root{--ink:#282936;--muted:#73768a;--line:#e5e6ed;--soft:#f7f7fb;--purple:#6657e7;--purple-soft:#f1efff;--orange:#ff6a3d;--shadow:0 14px 40px rgba(38,37,63,.10)}*{box-sizing:border-box}html,body{margin:0;min-height:100%}body{color:var(--ink);background:#fafafb;font:13px/1.45 Inter,system-ui,sans-serif}button,input,select,textarea{font:inherit}button{color:inherit}button:not(:disabled){cursor:pointer}.app-shell{min-height:100vh;background:#fff}.topbar{height:68px;padding:0 26px;border-top:3px solid #109da8;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:36px}.brand{text-decoration:none;color:#31333f;font-weight:700;letter-spacing:-.7px;font-size:19px;display:flex;align-items:center;gap:7px}.brand-mark{display:grid;place-items:center;width:25px;height:25px;border:3px solid var(--orange);border-radius:50%;color:var(--orange);font-size:11px}.crumbs{display:flex;align-items:center;gap:10px;color:#9698a6;flex:1}.crumbs strong{color:#555767;font-weight:500}.topbar-actions{display:flex;align-items:center;gap:9px}.avatar{display:grid;place-items:center;width:33px;height:33px;border-radius:50%;background:#bfd5f5;color:#39547b;font-weight:600;margin-left:4px}.button{min-height:34px;padding:0 13px;border:1px solid transparent;border-radius:7px;font-weight:600;background:#fff}.button--ghost{border-color:#dfe0e8;background:#fff}.button--ghost:hover{background:var(--soft)}.button--primary{background:var(--purple);color:#fff;box-shadow:0 1px 2px rgba(37,25,120,.22)}.button--danger{background:#cf3f3f;color:#fff}.icon-button{width:29px;height:29px;border:0;border-radius:6px;background:transparent;color:#77798a;font-weight:700;font-size:19px}.icon-button:hover{background:var(--soft)}.eyebrow{margin:0 0 4px;color:#8b8d9b;letter-spacing:.085em;font:500 9px/1 'DM Mono',monospace}
+.builder{height:calc(100vh - 68px);min-height:670px;display:grid;grid-template-columns:220px minmax(500px,1fr) 300px;overflow:hidden}.left-panel,.properties-panel{background:#fff;overflow:auto}.left-panel{border-right:1px solid var(--line)}.left-panel__head{padding:22px 16px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--line)}.left-panel h1{font-size:15px;margin:0;letter-spacing:-.25px}.section-title{padding:15px 15px 8px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700;text-transform:uppercase;color:#6d7080;letter-spacing:.045em}.section-title__note{color:#a2a4b1;font:400 9px 'DM Mono',monospace;text-transform:none;letter-spacing:0}.structure-section{padding-bottom:11px;border-bottom:1px solid var(--line)}.structure-row{position:relative;display:flex;align-items:center;border:0;background:transparent;border-radius:5px;width:calc(100% - 16px);height:30px;margin:1px 8px;padding:0 8px 0 calc(8px + var(--level)*13px);gap:6px;text-align:left;color:#4e5060}.structure-row:hover{background:#f5f4fa}.structure-row.is-selected{color:#4e3fc2;background:var(--purple-soft);font-weight:600}.structure-row.is-hidden{color:#a1a3af}.structure-row__branch{color:#a1a4b0;font:12px 'DM Mono',monospace;width:10px}.structure-row__eye{margin-left:auto;padding:3px;color:#8b8d9c;font-size:13px}.structure-row.is-selected .structure-row__eye{color:var(--purple)}.members-section{padding-bottom:16px}.count{border-radius:99px;padding:1px 6px;font-size:10px;background:#edecf5}.members-list{padding:0 8px}.member-row{position:relative;display:flex;align-items:center;gap:8px;height:38px;padding:0 7px;border-radius:6px}.member-row:hover{background:#f7f7fb}.member-row.is-selected{background:var(--purple-soft)}.member-avatar{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--avatar);color:#515363;font-size:9px;font-weight:700}.member-row__name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.member-row__name.is-placeholder{color:#999ba9;font-style:italic}.member-menu{display:none;margin-left:auto;border:0;border-radius:4px;background:transparent;color:#77798a;font-size:17px;height:25px;width:24px}.member-row:hover .member-menu,.member-row.is-selected .member-menu{display:block}.member-popover{position:absolute;right:3px;top:33px;z-index:10;width:153px;padding:4px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:7px}.member-popover button{width:100%;padding:7px 8px;text-align:left;border:0;background:transparent;border-radius:4px;font-size:12px}.member-popover button:hover{background:var(--soft)}.member-popover .remove{color:#c14040}.add-member{width:calc(100% - 16px);height:31px;margin:8px;border:1px dashed #b6b7c3;color:#5a4ac9;border-radius:6px;background:#fff;font-size:12px;font-weight:600}
+.canvas{position:relative;display:flex;flex-direction:column;min-width:0;background:#f3f3f7;overflow:hidden}.canvas-toolbar{height:42px;padding:0 18px;border-bottom:1px solid #e2e2e8;background:#fbfbfc;display:flex;align-items:center;justify-content:space-between;color:#6d6e7c;font-size:12px}.canvas-toolbar__right{display:flex;align-items:center;gap:12px}.text-button{border:0;background:transparent;color:#5f50d1;font-size:11px}.canvas-scroll{flex:1;overflow:auto;padding:42px;display:flex;align-items:flex-start;justify-content:center}.page-sheet{width:min(100%,960px);min-height:610px;padding:24px;background:#fff;box-shadow:0 2px 8px rgba(45,44,67,.12)}.team-page{width:100%}.team-page.page-is-hidden{opacity:.4}.team-page__content{padding:var(--page-padding);background:#fffcf8;border:1px solid #f1e7de}.team-page__kicker{margin:0 0 11px;color:#ba6649;letter-spacing:.1em;font:500 10px 'DM Mono',monospace}.team-page__heading{margin:0;max-width:620px;font-size:36px;line-height:1.12;letter-spacing:-1.4px;color:#222432}.team-page__description{margin:15px 0 34px;max-width:550px;color:#696b78;font-size:14px;line-height:1.65}.members-grid{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));gap:16px}.member-card{min-width:0;padding:22px;border:1px solid #e5e2e0;border-radius:3px;background:#fff;text-align:left;transition:border .14s,box-shadow .14s}.member-card:hover{border-color:#9d96ea}.member-card.is-template-active{border:1px dashed #685ae2;box-shadow:0 0 0 1px rgba(104,90,226,.12)}.member-card.is-template-active:hover{border:2px solid #685ae2;padding:21px}.member-card__photo{display:grid;place-items:center;width:54px;height:54px;margin-bottom:17px;border-radius:50%;background:var(--avatar);color:#505365;font-size:14px;font-weight:700}.member-card h3{margin:0;font-size:15px;letter-spacing:-.25px}.member-card__role{min-height:20px;margin:3px 0 13px;color:#7a7b88;font-size:11px}.member-card__details{padding-top:12px;border-top:1px solid #edebea}.member-card__details p{display:flex;gap:6px;margin:5px 0;color:#5d606e;font-size:10px;overflow-wrap:anywhere}.member-card__details span{color:#989aa7}.member-card__details .member-card__bio{display:block;margin:13px 0 0;line-height:1.52;color:#767885}.element-hidden{display:none!important}.template-caption{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:3;padding:8px 13px;border-radius:6px;background:#29283a;color:#fff;box-shadow:var(--shadow);font-size:11px;white-space:nowrap}.save-prompt{position:absolute;left:20px;right:20px;bottom:20px;z-index:4;display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid #e4d7b8;border-radius:8px;background:#fffdf7;box-shadow:var(--shadow)}.save-prompt>div{margin-right:auto;display:flex;flex-direction:column}.save-prompt strong{font-size:12px}.save-prompt span{color:#777369;font-size:11px}.save-prompt .button{min-height:31px;padding:0 10px;font-size:11px}.page-save-prompt{position:fixed;right:316px;bottom:19px;z-index:8;display:flex;gap:10px;align-items:center;padding:8px 10px 8px 13px;background:#fff;border:1px solid #ddddea;border-radius:8px;box-shadow:var(--shadow);color:#656677;font-size:11px}.page-save-prompt .button{min-height:30px;font-size:11px}
+.properties-panel{border-left:1px solid var(--line);display:flex;flex-direction:column}.properties-head{padding:19px 18px 16px;border-bottom:1px solid var(--line)}.breadcrumb{margin:0 0 7px;color:#8b8d9c;font:10px 'DM Mono',monospace}.properties-head h2{margin:0;font-size:18px;letter-spacing:-.45px}.properties-scroll{padding:0 18px 30px}.property-section{padding:18px 0;border-bottom:1px solid var(--line);position:relative}.property-section h3{margin:0 0 13px;color:#626474;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.field{position:relative;display:grid;gap:5px;margin:0 0 13px;color:#696b79;font-size:11px}.field input,.field select,.field textarea,.team-selector select{width:100%;min-height:32px;border:1px solid #dfe0e8;border-radius:5px;background:#fff;padding:6px 8px;outline:none;color:#353746;font-size:12px}.field textarea{min-height:67px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.team-selector select:focus{border-color:#8076df;box-shadow:0 0 0 2px rgba(102,87,231,.12)}.help-text{margin:0;color:#777987;font-size:12px;line-height:1.55}.help-text strong{color:#4d4f60}.member-edit{display:flex;flex-direction:column}.member-edit__avatar{display:grid;place-items:center;width:42px;height:42px;margin:0 0 14px;border-radius:50%;background:var(--avatar);color:#575969;font-size:12px;font-weight:700}.toggle-row{display:flex;align-items:center;justify-content:space-between;color:#525463;font-size:12px}.toggle-row input{position:absolute;opacity:0}.toggle-row i{width:32px;height:18px;border-radius:99px;background:#c8c9d3;position:relative;transition:.15s}.toggle-row i:after{content:'';position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:#fff;transition:.15s}.toggle-row input:checked+i{background:var(--purple)}.toggle-row input:checked+i:after{transform:translateX(14px)}.override-dot{position:absolute;right:5px;top:20px;width:6px;height:6px;background:#ed754f;border-radius:50%}.reset-control{display:none;position:absolute;right:0;top:14px;width:20px;height:20px;border:0;border-radius:4px;background:#fff0eb;color:#d96142}.property-section:hover .reset-control{display:block}.team-selector{display:grid;gap:5px;margin:0 0 14px;color:#696b79;font-size:11px}.override-summary{display:flex;align-items:center;justify-content:space-between;gap:5px;padding:8px 9px;border-radius:5px;background:#fff4ed;color:#a34c30;font-size:10px}.override-summary.is-clean{color:#7b7d89;background:#f7f7fa}.override-summary button{border:0;padding:0;background:transparent;color:#a34c30;text-decoration:underline;font-size:10px}
+.modal-layer,.confirm-layer{position:fixed;inset:0;z-index:20;background:rgba(31,31,45,.50);display:grid;place-items:center;padding:30px}.template-modal{width:min(1190px,100%);height:min(770px,100%);display:flex;flex-direction:column;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 28px 70px rgba(20,20,35,.32)}.template-modal__head{height:74px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.template-modal__head h2{margin:0;font-size:19px;letter-spacing:-.4px}.template-modal__body{min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,1fr) 300px;background:#f4f4f7}.template-preview-wrap{min-width:0;overflow:auto;padding:22px}.preview-label{display:flex;align-items:center;gap:6px;margin:0 auto 10px;width:min(650px,100%);color:#777988;font-size:11px}.live-dot{width:6px;height:6px;border-radius:50%;background:#1ba77c}.template-preview-sheet{width:min(650px,100%);margin:0 auto;padding:17px;background:#fff;box-shadow:0 1px 6px rgba(43,42,64,.14)}.team-page--preview .team-page__content{padding:38px}.team-page--preview .team-page__heading{font-size:27px}.team-page--preview .team-page__description{margin-bottom:24px;font-size:12px}.team-page--preview .members-grid{gap:10px}.team-page--preview .member-card{padding:13px}.team-page--preview .member-card__photo{width:36px;height:36px;margin-bottom:10px;font-size:10px}.team-page--preview .member-card h3{font-size:11px}.team-page--preview .member-card__role{margin-bottom:8px;font-size:9px}.team-page--preview .member-card__details{padding-top:8px}.team-page--preview .member-card__details p{font-size:8px;margin:3px 0}.team-page--preview .member-card__details .member-card__bio{margin-top:8px}.template-modal__foot{height:63px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-top:1px solid var(--line);background:#fff}.template-modal__foot>div{display:flex;gap:8px}.template-modal__foot .button{min-height:33px;font-size:12px}.confirm-dialog{width:360px;padding:25px;border-radius:10px;background:#fff;box-shadow:var(--shadow);text-align:center}.confirm-icon{display:grid;place-items:center;width:34px;height:34px;margin:0 auto 11px;border-radius:50%;background:#fff0ec;color:#d3543c;font-weight:700}.confirm-dialog h2{margin:0;font-size:18px}.confirm-dialog p{margin:9px 0 20px;color:#747684;font-size:12px;line-height:1.55}.confirm-dialog div{display:flex;justify-content:center;gap:8px}.confirm-dialog .button{min-height:34px;font-size:12px}
+@media(max-width:1040px){.builder{grid-template-columns:205px minmax(420px,1fr) 272px}.canvas-scroll{padding:28px}.page-sheet{padding:0}.team-page__content{padding:42px}.members-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{gap:16px}.crumbs{display:none}}@media(max-width:780px){.topbar{padding:0 13px}.topbar-actions .button--ghost,.topbar-actions .avatar{display:none}.builder{height:auto;min-height:100vh;grid-template-columns:1fr}.left-panel,.properties-panel{display:none}.canvas{min-height:calc(100vh - 68px)}.canvas-scroll{padding:18px}.page-sheet{width:100%;padding:0}.team-page__content{padding:28px}.members-grid{grid-template-columns:1fr}.template-modal{height:100%;border-radius:0}.template-modal__body{grid-template-columns:1fr}.template-modal .properties-panel{display:flex}.template-preview-wrap{display:none}.page-save-prompt{right:12px}.template-modal__foot{padding:0 10px}.template-modal__foot>.button{display:none}}
+
+/* The Page settings control the team-page inset; the sheet itself has no added inset. */
+.page-sheet{padding:0}
+
+/* Default team-page presentation from the supplied Figma reference. */
+.team-page__content--figma{position:relative;height:100%;min-height:0;padding:var(--page-padding);padding-bottom:64px;border:0;background:#fff;font-family:Inter,system-ui,sans-serif}
+.team-page__brand{display:flex;align-items:center;width:101px;height:24px;gap:2px}.team-page__logomark{width:24px;height:24px}.team-page__logotype{width:75px;height:auto}
+.team-page__intro{max-width:532px;margin-top:44px}.team-page__content--figma .team-page__heading{max-width:none;color:#0f3a64;font-size:24px;line-height:32px;letter-spacing:0;font-weight:600}.team-page__content--figma .team-page__description{max-width:none;margin:4px 0 0;color:#343839;font-size:14px;line-height:1.5}
+.team-page__content--figma .team-page__subhead{max-width:none;margin:8px 0 0;color:#525965;font-size:14px;line-height:20px}
+.team-page__content--figma .members-grid{max-width:532px;margin-top:24px;gap:24px 16px}.team-page__content--figma .member-card{display:flex;flex-direction:column;align-items:stretch;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;text-align:left}.team-page__content--figma .member-card:hover{border-color:transparent}.team-page__content--figma .member-card__photo{display:grid;width:100%;height:auto;margin:0 0 12px;overflow:hidden;border-radius:0;background:var(--avatar);aspect-ratio:1}.team-page__content--figma .member-card__photo img{width:100%;height:100%;object-fit:cover}.team-page__content--figma .member-card h3{color:#0f3a64;font-size:14px;line-height:1.5;letter-spacing:0;font-weight:600;opacity:.9}.team-page__content--figma .member-card__role{min-height:0;margin:2px 0 8px;color:#343839;font-size:12px;line-height:1.2}.team-page__content--figma .member-card__details{padding:0;border:0}.team-page__content--figma .member-card__details p{display:block;margin:2px 0;color:#343839;font-size:12px;line-height:1.2}.team-page__content--figma .member-card__details span{display:none}.team-page__content--figma .member-card__bio{margin-top:8px}.team-page__bottom-bar{position:absolute;right:0;bottom:0;left:0;height:16px;background:#0f3a64}
+.team-page__content--figma .member-card.has-card-selection{
+  outline:1px dashed var(--border-brand);
+  outline-offset:2px;
+}
+.team-page__content--figma .member-card.has-card-selection.is-template-focus{
+  outline:1px dashed var(--border-brand);
+  outline-offset:2px;
+}
+.team-page__content--figma .member-card.is-template-focus{padding:0}
+
+.members-section__head{position:relative}.team-selector-toggle{display:flex;align-items:center;gap:5px;margin:-5px 0 -5px -5px;padding:5px;border:0;border-radius:4px;background:transparent;color:#6d7080;font:inherit;font-weight:700;letter-spacing:.045em;text-transform:uppercase}.team-selector-toggle:hover{background:#f5f4fa}.team-selector-toggle #active-team-name{max-width:82px;overflow:hidden;color:#9294a1;font:400 9px "DM Mono",monospace;letter-spacing:0;text-overflow:ellipsis;text-transform:none;white-space:nowrap}.team-selector-toggle b{color:#9496a4;font-size:13px;font-weight:400;line-height:1}.team-selector-menu{position:absolute;z-index:12;top:39px;right:8px;left:8px;padding:4px;border:1px solid var(--line);border-radius:7px;background:#fff;box-shadow:var(--shadow)}.team-selector-menu button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px;border:0;border-radius:4px;background:transparent;color:#4e5060;font-size:12px;text-align:left}.team-selector-menu button:hover,.team-selector-menu button.is-active{background:#f5f4fa;color:#5546c9}.team-selector-menu small{color:#9b9daa;font-size:10px}
+.field-drag-handle{margin-right:6px;color:#a4a6b3;font-size:14px;letter-spacing:-4px;cursor:grab}.property-visibility[data-field-order]{padding-left:1px;transition:background .12s,opacity .12s}.property-visibility[data-field-order].is-dragging{opacity:.45}.property-visibility[data-field-order].is-drop-target{background:#f0eeff;box-shadow:inset 0 2px 0 #685ae2}
+.visibility-icon{position:relative;display:block;width:15px;height:10px;border:1.4px solid currentColor;border-radius:50%;color:inherit}.visibility-icon:before{position:absolute;top:50%;left:50%;width:4px;height:4px;border-radius:50%;background:currentColor;content:"";transform:translate(-50%,-50%)}.visibility-icon.is-hidden:after{position:absolute;top:3px;left:-2px;width:17px;height:1.5px;border-radius:2px;background:currentColor;content:"";transform:rotate(-35deg)}.structure-row__eye,.property-visibility button,.compact-content-field button{display:grid;place-items:center}.structure-row__eye{width:22px;height:22px}.property-visibility button,.compact-content-field button{width:24px;height:24px;padding:0}
+.member-card__detail{display:flex;gap:6px;margin:5px 0;color:#5d606e;font-size:10px;overflow-wrap:anywhere}.member-card__detail span{color:#989aa7}.member-card__bio{display:block;margin:13px 0 0;line-height:1.52;color:#767885}
+.team-page__content--figma .member-card__detail{display:block;margin:2px 0;color:#343839;font-size:12px;line-height:1.2}.team-page__content--figma .member-card__detail span{display:none}.team-page__content--figma .member-card__bio{margin-top:8px}
+
+/* US Letter, portrait — 8.5 × 11 in at the prototype's 72 dpi design scale. */
+.page-sheet{width:612px;height:792px;min-height:792px;flex:none}.page-sheet>.team-page{height:100%}
+
+/* Keep content within the fixed Letter page while card rows are fitted in JavaScript. */
+.team-page__content--figma{overflow:hidden}.team-page__content--figma .members-grid{min-height:0}.team-page__content--figma .member-card{min-height:0;overflow:hidden}.team-page__content--figma .member-card__photo{flex:none}
+
+/* The panel title already provides context; breadcrumbs add no useful information here. */
+.properties-panel .breadcrumb{display:none}
+
+.property-section h3:after{content:none}
+
+/* Standard style fields use a horizontal property-row layout. */
+.properties-panel .property-section .field{grid-template-columns:minmax(0,1fr) 156px;align-items:center;gap:10px;margin-bottom:8px}.properties-panel .property-section .field>span{color:#68696e}.properties-panel .property-section .field input,.properties-panel .property-section .field select{width:100%}.properties-panel .property-section .field:has(textarea){grid-template-columns:1fr;align-items:stretch;gap:6px}.properties-panel .property-section .field:has(textarea) textarea{width:100%}
+
+/* Alignment is always the same three-state icon toggle. */
+.property-align .alignment-toggle{display:grid;grid-template-columns:repeat(3,1fr);gap:0;min-width:102px;padding:3px;border-radius:7px;background:#f1f1f2}.property-align .alignment-toggle button{display:grid;place-items:center;min-width:32px;height:30px;padding:0}.alignment-icon{display:block;width:23px;height:17px;background-repeat:no-repeat}.alignment-icon--left{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-position:left 1px,left 8px,left 15px;background-size:23px 2px,14px 2px,18px 2px}.alignment-icon--center{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-position:center 1px,center 8px,center 15px;background-size:23px 2px,14px 2px,18px 2px}.alignment-icon--right{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-position:right 1px,right 8px,right 15px;background-size:23px 2px,14px 2px,18px 2px}
+
+/* Keep dividers between groups, not between every individual setting. */
+.property-section .property-stepper,.property-section .property-align,.property-section .property-visibility,.property-section .property-color,.property-section .property-select{border-bottom:0!important}
+
+/* Saved-team selector sits below the Members heading, as a standard control. */
+.team-selector-control{position:relative;margin:0 8px 7px}.team-selector-toggle{justify-content:space-between;width:100%;min-height:32px;margin:0;padding:0 9px;border:1px solid #dfe0e8;border-radius:5px;background:#fff;color:#4e5060;font-size:12px;font-weight:500;letter-spacing:0;text-transform:none}.team-selector-toggle:hover{border-color:#b9b4e9;background:#fff}.team-selector-toggle #active-team-name{max-width:none;color:inherit;font:inherit;letter-spacing:0;text-transform:none}.team-selector-toggle b{color:#77798a;font-size:14px}.team-selector-menu{top:calc(100% + 4px);right:0;left:0}
+
+/* Framer-inspired property panel: soft controls, deliberate rows, and quiet dividers. */
+.properties-panel{background:#fff}.properties-head{padding:18px 16px 15px;border-bottom:1px solid #ececef}.properties-head h2{font-size:17px;letter-spacing:-.3px}.properties-head .property-subtitle{display:none}.properties-scroll{padding:0 12px 32px}.property-section{padding:17px 0;border-bottom:1px solid #ececef}.property-section h3{display:flex;align-items:center;margin:0 0 11px;color:#242529;font-size:14px;font-weight:600;letter-spacing:0;text-transform:none}.help-text{color:#727378;font-size:11px;line-height:1.45}.card-template-note{margin-bottom:10px!important}
+.property-stepper,.property-align,.property-visibility,.property-color,.property-select{min-height:42px;border-bottom:0;color:#626368;font-size:13px}.property-stepper>span,.property-align>span,.property-visibility>span:not(.field-drag-handle),.property-color>span,.property-select>span{color:#68696e}.property-stepper>div{gap:0}.property-stepper button{width:26px;min-width:26px;height:30px;border:0;border-radius:6px;background:#f5f5f5;color:#7a7b80;font-size:15px}.property-stepper output{min-width:48px;height:30px;padding:7px 5px;border:0;background:#f5f5f5;color:#27282c;font:13px "DM Mono",monospace}.property-stepper button:first-child{border-radius:6px 0 0 6px}.property-stepper button:last-child{border-radius:0 6px 6px 0}.property-align>div{gap:3px;padding:3px;border-radius:7px;background:#f4f4f5}.property-align button{min-width:31px;height:28px;border:0;border-radius:5px;background:transparent;color:#77787d;font-size:11px}.property-align button.is-active{background:#fff;border:0;box-shadow:0 1px 3px rgba(0,0,0,.15);color:#1299e9}.property-visibility button{width:34px;height:28px;border-radius:6px;background:#f5f5f5;color:#1599e7}.property-select select{width:126px;height:30px;padding:0 9px;border:0;border-radius:7px;background:#f5f5f5;color:#2f3035;font-size:12px}.property-color-trigger{min-width:126px;height:30px;border:0;border-radius:7px;background:#f5f5f5}.property-color-trigger code{color:#505158;font-size:10px}.property-color-trigger small{color:#77787e}.card-style-options{gap:6px}.card-style-options button{min-height:54px;border:0;border-radius:7px;background:#f5f5f5;color:#626369}.card-style-options button.is-active{border:0;background:#fff;box-shadow:0 0 0 2px #119be8,0 2px 5px rgba(0,0,0,.12);color:#119be8}
+.compact-content-field{gap:6px;margin-bottom:12px;color:#606166;font-size:12px}.compact-content-field input{min-height:34px;padding:7px 34px 7px 9px;border:0;border-radius:7px;background:#f5f5f5;color:#303136;font-size:12px}.compact-content-field input:focus{outline:2px solid rgba(17,155,232,.22);box-shadow:none}.compact-content-field button{right:4px;bottom:5px;width:27px;height:27px;border-radius:6px;background:transparent;color:#139be8}.field{gap:6px;color:#626368;font-size:12px}.field input,.field select{min-height:34px;border:0;border-radius:7px;background:#f5f5f5;color:#303136}.field input:focus,.field select:focus{border-color:transparent;box-shadow:0 0 0 2px rgba(17,155,232,.22)}
+.compact-content-field:has(input){grid-template-columns:minmax(0,1fr) 156px;align-items:center;gap:10px;margin-bottom:8px}.compact-content-field:has(input)>span{color:#68696e}.compact-content-field:has(input) button{bottom:3px}
+
+/* Lucide is the single icon source across the builder. */
+.lucide{width:1em;height:1em;stroke-width:1.8;vertical-align:middle}.figma-nav .lucide{width:16px;height:16px}.figma-header__actions .lucide{width:17px;height:17px}.figma-breadcrumbs .lucide{width:14px;height:14px}.function-header .button,.add-member{display:inline-flex;align-items:center;justify-content:center;gap:5px}.function-header .button .lucide,.add-member .lucide{width:14px;height:14px}.member-menu .lucide{width:16px;height:16px}.member-card__detail .lucide{width:11px;height:11px}.field-drag-handle{display:inline-grid;place-items:center;letter-spacing:0}.field-drag-handle .lucide{width:13px;height:13px}.visibility-icon{position:static;display:block;width:15px;height:15px;border:0!important;border-radius:0!important}.visibility-icon:before,.visibility-icon:after{content:none!important}.property-stepper .lucide{width:13px;height:13px}.property-align .alignment-toggle .lucide{width:20px;height:20px}.card-style-options strong{display:grid;place-items:center}.card-style-options strong .lucide{width:16px;height:16px}.color-picker__value .lucide{width:17px;height:17px}
+.structure-row__branch .lucide{width:12px;height:12px;stroke-width:1.7}
+
+/* Icon scale: native Lucide geometry is 24px/2px. Icons in buttons are
+   rendered at 16px, which scales the apparent 2px stroke to about 1.33px. */
+.lucide{width:24px!important;height:24px!important;stroke-width:2!important}
+button .lucide{width:16px!important;height:16px!important}
+
+/* Outmarket Foundation — semantic color variables from the shared design system. */
+:root{--bg-primary:#ffffff;--bg-secondary:#f9fafb;--bg-tertiary:#f2f4f7;--bg-inverted:#343839;--bg-disabled:#f2f4f7;--bg-brand-muted:#f6f7fe;--bg-brand-subtle:#eae7fe;--bg-brand-base:#6a56f0;--bg-brand-base-hover:#5639ec;--bg-brand-strong:#5639ec;--text-primary:#1b1d1d;--text-secondary:#525965;--text-tertiary:#6a758a;--text-placeholder:#97a0b4;--text-on-color:#ffffff;--border-primary:#e7ebee;--border-secondary:#f2f4f7;--border-brand:#6a56f0;--border-danger:#f04438;--icon-primary:#525965;--icon-secondary:#6a758a;--icon-brand:#6a56f0;--icon-on-color:#ffffff;--status-success:#12b76a;--status-warning:#f0b100;--status-danger:#f04438;--status-info:#2e79fa;--ink:var(--text-primary);--muted:var(--text-tertiary);--line:var(--border-primary);--soft:var(--bg-tertiary);--purple:var(--bg-brand-base);--purple-soft:var(--bg-brand-subtle);--orange:#ff5722;--shadow:0 14px 40px rgba(27,29,29,.10)}
+body{background:var(--bg-secondary);color:var(--text-primary)}.app-shell,.left-panel,.properties-panel,.page-sheet{background:var(--bg-primary)}.canvas{background:var(--bg-tertiary)}.topbar{border-top-color:var(--bg-brand-base);border-bottom-color:var(--border-primary)}.brand{color:var(--text-primary)}.crumbs{color:var(--text-tertiary)}.crumbs strong{color:var(--text-secondary)}.button--ghost{border-color:var(--border-primary);background:var(--bg-primary)}.button--primary{background:var(--bg-brand-base);color:var(--text-on-color);box-shadow:0 1px 2px rgba(86,57,236,.22)}.button--primary:hover{background:var(--bg-brand-base-hover)}.button--danger{background:var(--status-danger);color:var(--text-on-color)}.icon-button{color:var(--icon-secondary)}.icon-button:hover{background:var(--bg-tertiary);color:var(--icon-primary)}
+.structure-row.is-selected,.member-row.is-selected{background:var(--bg-brand-subtle);color:var(--text-brand-base,#6a56f0)}.structure-row:hover,.member-row:hover{background:var(--bg-tertiary)}.structure-row.is-selected .structure-row__eye,.text-button,.add-member{color:var(--icon-brand)}.add-member{border-color:var(--border-brand);background:var(--bg-primary)}.member-popover button:hover,.team-selector-menu button:hover,.team-selector-menu button.is-active{background:var(--bg-brand-muted);color:var(--text-brand-base,#6a56f0)}.member-popover .remove{color:var(--status-danger)}
+.properties-head,.property-section{border-color:var(--border-primary)}.property-section h3{color:var(--text-primary)}.property-stepper button,.property-stepper output,.property-select select,.property-color-trigger,.field input,.field select,.compact-content-field input{background:var(--bg-tertiary);color:var(--text-primary)}.property-stepper output{color:var(--text-primary)}.property-align button.is-active,.card-style-options button.is-active{color:var(--icon-brand)}.property-visibility button,.compact-content-field button{color:var(--icon-brand)}.compact-content-field input:focus,.field input:focus,.field select:focus{outline-color:rgba(106,86,240,.22);box-shadow:0 0 0 2px rgba(106,86,240,.22)}.team-selector-toggle:hover{border-color:var(--border-brand)}
+
+/* Outmarket Button and Link components. */
+:root{--text-brand-base:#6a56f0;--text-brand-base-hover:#5639ec;--text-danger-base:#f04438;--action-md-height:40px;--action-sm-height:32px;--action-xs-size:24px;--action-radius:8px;--action-gap:8px;--action-focus-ring:0 0 0 2px var(--bg-primary),0 0 0 4px var(--border-brand)}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:var(--action-gap);min-height:var(--action-md-height);padding:0 16px;border:1px solid transparent;border-radius:var(--action-radius);font:500 14px/20px Inter,system-ui,sans-serif;white-space:nowrap;transition:background-color .15s,border-color .15s,color .15s,box-shadow .15s}.button--primary{background:var(--bg-brand-base);color:var(--text-on-color)}.button--primary:hover{background:var(--bg-brand-base-hover)}.button--primary:active{background:var(--bg-brand-strong)}.button--ghost{background:var(--bg-primary);border-color:var(--border-primary);color:var(--text-secondary);box-shadow:none}.button--ghost:hover{background:var(--bg-tertiary);border-color:var(--border-primary);color:var(--text-primary)}.button--ghost:active{background:var(--bg-secondary)}.button--danger{background:var(--status-danger);color:var(--text-on-color)}.button--danger:hover{background:#d92d20}.button--danger:active{background:#b42318}.button:focus-visible,.icon-button:focus-visible,.text-button:focus-visible,.add-member:focus-visible{outline:0;box-shadow:var(--action-focus-ring)}.button:disabled,.icon-button:disabled,.text-button:disabled,.add-member:disabled{pointer-events:none;background:var(--bg-disabled);border-color:transparent;color:var(--text-placeholder);box-shadow:none}
+.button .lucide{flex:none}.function-header .button,.template-modal__foot .button,.save-prompt .button,.page-save-prompt .button{min-height:var(--action-sm-height);padding:0 12px;font-size:14px;line-height:20px}.add-member{display:inline-flex;align-items:center;justify-content:center;gap:var(--action-gap);height:var(--action-sm-height);margin:8px;padding:0 12px;border:1px solid var(--border-primary);border-radius:var(--action-radius);background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif}.add-member:hover{background:var(--bg-tertiary);color:var(--text-primary);border-color:var(--border-primary)}
+.icon-button{display:inline-grid;place-items:center;width:var(--action-md-height);height:var(--action-md-height);padding:0;border:0;border-radius:var(--action-radius);background:transparent;color:var(--icon-secondary)}.icon-button:hover{background:var(--bg-tertiary);color:var(--icon-primary)}.text-button{display:inline-flex;align-items:center;justify-content:center;min-height:var(--action-md-height);padding:0 12px;border:0;border-radius:var(--action-radius);background:transparent;color:var(--text-brand-base,#6a56f0);font:500 14px/20px Inter,system-ui,sans-serif;text-decoration:none}.text-button:hover{background:var(--bg-brand-muted);color:var(--bg-brand-base-hover);text-decoration:underline;text-underline-offset:3px}.text-button:active{background:var(--bg-brand-subtle)}
+
+/* Outmarket Segmented Control: quiet overlay surface with one elevated selection. */
+.segmented-control{display:inline-flex;align-items:center;padding:4px;border-radius:12px;background:var(--bg-brand-muted);font:500 14px/20px Inter,system-ui,sans-serif}.segmented-control--sm{padding:2px;border-radius:8px}.segmented-control__segment{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:32px;padding:6px 12px;border:0;border-radius:8px;background:transparent;color:var(--text-secondary);font:inherit;white-space:nowrap;transition:background-color .15s,color .15s,box-shadow .15s}.segmented-control--sm .segmented-control__segment{min-width:28px;min-height:28px;padding:4px 8px;border-radius:6px}.segmented-control__segment:hover:not(:disabled){background:var(--bg-secondary);color:var(--text-secondary)}.segmented-control__segment.is-active{background:var(--bg-primary);box-shadow:0 1px 2px rgba(10,13,18,.05);color:var(--text-brand-base)}.segmented-control__segment:focus-visible{position:relative;z-index:1;outline:0;box-shadow:var(--action-focus-ring)}.segmented-control__segment:disabled{color:var(--text-placeholder);pointer-events:none}
+.property-align .alignment-toggle{display:grid;grid-template-columns:repeat(3,1fr);gap:0;min-width:102px;padding:2px;border-radius:8px;background:var(--bg-brand-muted)}.property-align .alignment-toggle button{min-width:32px;height:28px;padding:4px 8px;border:0;border-radius:6px;background:transparent;box-shadow:none;color:var(--text-secondary)}.property-align .alignment-toggle button:not(.is-active):hover{background:transparent;box-shadow:none;color:var(--text-secondary)}.property-align .alignment-toggle button.is-active{background:var(--bg-primary);box-shadow:0 1px 2px rgba(10,13,18,.05);color:var(--text-brand-base)}.property-align .alignment-toggle .lucide{width:16px!important;height:16px!important}
+.card-style-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;padding:4px;border-radius:12px;background:var(--bg-brand-muted)}.card-style-options button{display:flex;flex-direction:column;gap:3px;min-height:58px;padding:7px 3px;border:0;border-radius:8px;background:transparent;color:var(--text-secondary);font:500 10px/14px Inter,system-ui,sans-serif;white-space:normal}.card-style-options button:hover:not(:disabled){background:var(--bg-secondary);color:var(--text-secondary)}.card-style-options button.is-active{background:var(--bg-primary);box-shadow:0 1px 2px rgba(10,13,18,.05);color:var(--text-brand-base)}.card-style-options strong .lucide{width:16px!important;height:16px!important}
+
+/* Outmarket Select: compact for property rows, labeled for contextual selectors. */
+.select-control{position:relative;display:inline-flex;align-items:center;min-width:0}.select-control select{width:100%;height:32px;min-width:0;padding:6px 36px 6px 12px;appearance:none;border:1px solid #d0d5dd;border-radius:8px;background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif;outline:0;transition:border-color .15s,box-shadow .15s}.select-control>.lucide{position:absolute;right:12px;pointer-events:none;color:var(--icon-secondary)}.select-control:focus-within select{border-color:var(--border-brand);box-shadow:0 0 0 3px rgba(106,86,240,.16)}.select-control select:hover:not(:disabled){border-color:#98a2b3}.select-control select:disabled{border-color:var(--border-secondary);background:var(--bg-disabled);color:var(--text-placeholder)}.property-select .select-control{width:126px;flex:none}.property-select .select-control select{height:32px}.template-source{gap:4px!important;color:var(--text-secondary)!important;font:500 14px/20px Inter,system-ui,sans-serif!important}.template-source .select-control{width:100%}.template-source .select-control select{height:32px;font-weight:400;color:var(--text-primary)}.template-source small{color:var(--text-tertiary)!important;font:400 12px/16px Inter,system-ui,sans-serif!important}.team-selector-toggle{min-height:32px;padding:6px 12px;border-color:#d0d5dd;border-radius:8px;background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif}.team-selector-toggle:hover{border-color:#98a2b3;background:var(--bg-primary)}.team-selector-toggle:focus-visible{outline:0;border-color:var(--border-brand);box-shadow:0 0 0 3px rgba(106,86,240,.16)}.team-selector-toggle .lucide{margin-left:auto;color:var(--icon-secondary)}.team-selector-menu{padding:4px;border-color:var(--border-primary);border-radius:8px;background:var(--bg-primary);box-shadow:0 4px 8px -2px rgba(10,13,18,.10),0 2px 4px -2px rgba(10,13,18,.06)}.team-selector-menu button{min-height:40px;padding:10px 12px;border-radius:8px;color:var(--text-primary);font:400 14px/20px Inter,system-ui,sans-serif}.team-selector-menu button:hover,.team-selector-menu button.is-active{background:var(--bg-brand-muted);color:var(--text-primary)}.team-selector-menu small{color:var(--text-tertiary);font:400 12px/16px Inter,system-ui,sans-serif}
+.select-control{position:relative;display:inline-flex;align-items:center;min-width:0}.select-control select{width:100%;height:32px;min-width:0;padding:6px 36px 6px 12px;appearance:none;border:1px solid #d0d5dd;border-radius:8px;background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif;outline:0;transition:background-color .15s,box-shadow .15s}.property-select .select-control select,.template-source .select-control select{width:100%;height:32px;min-width:0;padding:6px 36px 6px 12px;appearance:none;border:1px solid #d0d5dd;border-radius:8px;background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif;outline:0}.select-control>.lucide{position:absolute;right:12px;pointer-events:none;color:var(--icon-secondary)}.select-control:focus-within select{border-color:var(--border-brand);box-shadow:0 0 0 3px rgba(106,86,240,.16)}.select-control select:hover:not(:disabled){border-color:#d0d5dd;background:var(--bg-secondary)}.select-control select:disabled{border-color:var(--border-secondary);background:var(--bg-disabled);color:var(--text-placeholder)}.property-select .select-control{width:126px;flex:none}.property-select .select-control select{height:32px}.template-source{gap:4px!important;color:var(--text-secondary)!important;font:500 14px/20px Inter,system-ui,sans-serif!important}.template-source .select-control{width:100%}.template-source .select-control select{height:32px;font-weight:400;color:var(--text-primary)}.template-source small{color:var(--text-tertiary)!important;font:400 12px/16px Inter,system-ui,sans-serif!important}.team-selector-toggle{min-height:32px;padding:6px 12px;border-color:#d0d5dd;border-radius:8px;background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif;transition:background-color .15s,box-shadow .15s}.team-selector-toggle:hover{border-color:#d0d5dd;background:var(--bg-secondary)}.team-selector-toggle:focus-visible{outline:0;border-color:var(--border-brand);box-shadow:0 0 0 3px rgba(106,86,240,.16)}.team-selector-toggle .lucide{margin-left:auto;color:var(--icon-secondary)}.team-selector-menu{padding:4px;border-color:var(--border-primary);border-radius:8px;background:var(--bg-primary);box-shadow:0 4px 8px -2px rgba(10,13,18,.10),0 2px 4px -2px rgba(10,13,18,.06)}.team-selector-menu button{min-height:40px;padding:10px 12px;border-radius:8px;color:var(--text-primary);font:400 14px/20px Inter,system-ui,sans-serif}.team-selector-menu button:hover,.team-selector-menu button.is-active{background:var(--bg-brand-muted);color:var(--text-primary)}.team-selector-menu small{color:var(--text-tertiary);font:400 12px/16px Inter,system-ui,sans-serif}
+.section-title{text-transform:none}
+
+/* Left builder panel: 24px inset on both sides. */
+.left-panel .section-title{padding-right:24px;padding-left:24px}.left-panel .structure-row{width:calc(100% - 48px);margin-right:24px;margin-left:24px}.left-panel .members-list{padding-right:24px;padding-left:24px}.left-panel .team-selector-control{margin-right:24px;margin-left:24px}.left-panel .add-member{width:calc(100% - 48px);margin-right:24px;margin-left:24px}
+
+/* Outmarket Input — small filled field used for text and number properties.
+   Textareas intentionally retain their separate editing treatment. */
+.properties-panel .field input:not([type="checkbox"]),
+.properties-panel .compact-content-field input{
+  width:100%;
+  height:32px;
+  min-height:32px!important;
+  padding:6px 12px;
+  border:1px solid #d0d5dd!important;
+  border-radius:8px!important;
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+  font:400 14px/20px Inter,system-ui,sans-serif!important;
+  outline:0;
+  transition:background-color .15s,box-shadow .15s;
+}
+.properties-panel .compact-content-field input{padding-right:40px}
+.properties-panel .field input:not([type="checkbox"])::placeholder,
+.properties-panel .compact-content-field input::placeholder{color:var(--text-placeholder);opacity:1}
+.properties-panel .field input:not([type="checkbox"]):hover:not(:disabled),
+.properties-panel .compact-content-field input:hover:not(:disabled){
+  border-color:#d0d5dd!important;
+  background:var(--bg-secondary)!important;
+}
+.properties-panel .field input:not([type="checkbox"]):focus,
+.properties-panel .compact-content-field input:focus{
+  border-color:var(--border-brand)!important;
+  background:var(--bg-primary)!important;
+  box-shadow:0 0 0 3px var(--bg-brand-subtle)!important;
+}
+.properties-panel .field input:not([type="checkbox"]):disabled,
+.properties-panel .compact-content-field input:disabled{
+  border-color:var(--border-secondary)!important;
+  background:var(--bg-disabled)!important;
+  color:var(--text-placeholder)!important;
+  cursor:not-allowed;
+}
+
+/* Outmarket Textarea Input — the multiline companion to the small input. */
+.properties-panel .field:has(textarea)>span,
+.properties-panel .compact-content-field:has(textarea)>span{
+  color:var(--text-secondary);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+}
+.properties-panel .compact-content-field>span{
+  color:var(--text-secondary);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+}
+.properties-panel .field textarea,
+.properties-panel .compact-content-field textarea{
+  width:100%;
+  min-height:130px;
+  padding:12px;
+  border:1px solid #d0d5dd!important;
+  border-radius:8px!important;
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+  font:400 14px/20px Inter,system-ui,sans-serif!important;
+  line-height:20px;
+  outline:0;
+  resize:vertical;
+  transition:background-color .15s,box-shadow .15s;
+}
+.properties-panel .field textarea::placeholder,
+.properties-panel .compact-content-field textarea::placeholder{color:var(--text-placeholder);opacity:1}
+.properties-panel .field textarea:hover:not(:disabled),
+.properties-panel .compact-content-field textarea:hover:not(:disabled){
+  border-color:#d0d5dd!important;
+  background:var(--bg-secondary)!important;
+}
+.properties-panel .field textarea:focus,
+.properties-panel .compact-content-field textarea:focus{
+  border-color:var(--border-brand)!important;
+  background:var(--bg-primary)!important;
+  box-shadow:0 0 0 3px var(--bg-brand-subtle)!important;
+}
+.properties-panel .field textarea:disabled,
+.properties-panel .compact-content-field textarea:disabled{
+  border-color:var(--border-secondary)!important;
+  background:var(--bg-disabled)!important;
+  color:var(--text-placeholder)!important;
+  cursor:not-allowed;
+}
+
+/* Ensure every compact property select uses the shared Select component,
+   not a platform-rendered dropdown. */
+.properties-panel .property-select .select-control{width:126px;flex:none}
+.properties-panel .property-select .select-control select{
+  width:100%;
+  height:32px;
+  padding:6px 36px 6px 12px;
+  -webkit-appearance:none!important;
+  -moz-appearance:none!important;
+  appearance:none!important;
+  border:1px solid #d0d5dd!important;
+  border-radius:8px!important;
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+  font:400 14px/20px Inter,system-ui,sans-serif!important;
+  outline:0;
+  transition:background-color .15s,box-shadow .15s;
+}
+.properties-panel .property-select .select-control select:hover:not(:disabled){
+  border-color:#d0d5dd!important;
+  background:var(--bg-secondary)!important;
+}
+.properties-panel .property-select .select-control:focus-within select{
+  border-color:var(--border-brand)!important;
+  background:var(--bg-primary)!important;
+  box-shadow:0 0 0 3px var(--bg-brand-subtle)!important;
+}
+.properties-panel .property-select .select-control select:disabled{
+  border-color:var(--border-secondary)!important;
+  background:var(--bg-disabled)!important;
+  color:var(--text-placeholder)!important;
+}
+.properties-panel .property-select .select-control>.lucide{
+  right:12px;
+  width:16px!important;
+  height:16px!important;
+  color:var(--icon-secondary);
+}
+
+/* Framer-like property rows share one fixed right-side control column. */
+.properties-panel{--property-control-width:140px}
+.properties-panel .property-section .field,
+.properties-panel .compact-content-field:has(input){grid-template-columns:minmax(0,1fr) var(--property-control-width)}
+.properties-panel .property-stepper>div,
+.properties-panel .property-align .alignment-toggle,
+.properties-panel .property-select .select-control,
+.properties-panel .property-color-trigger{width:var(--property-control-width)}
+.properties-panel .property-stepper__control{
+  display:flex;
+  align-items:center;
+  width:var(--property-control-width);
+  height:32px;
+  gap:4px;
+  overflow:visible;
+  border-radius:0;
+  background:transparent;
+}
+.properties-panel .property-stepper__actions{
+  display:flex;
+  flex:none;
+  width:70px;
+  height:32px;
+  overflow:hidden;
+  border-radius:8px;
+  background:var(--bg-tertiary);
+}
+.properties-panel .property-stepper__actions button{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:35px;
+  min-width:35px;
+  height:32px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:var(--icon-secondary);
+}
+.properties-panel .property-stepper__actions button+button{border-left:1px solid var(--border-primary)}
+.properties-panel .property-stepper__actions button:hover{background:var(--bg-secondary);color:var(--icon-primary)}
+.properties-panel .property-number-field{
+  display:flex;
+  align-items:center;
+  flex:none;
+  width:66px;
+  min-width:0;
+  height:32px;
+  padding:0 8px;
+  border-radius:8px;
+  background:var(--bg-tertiary);
+}
+.properties-panel .property-number-field input{
+  width:100%;
+  min-width:0;
+  height:32px;
+  padding:6px 0;
+  border:0!important;
+  background:transparent!important;
+  color:var(--text-primary)!important;
+  font:400 14px/20px Inter,system-ui,sans-serif!important;
+  text-align:left;
+  outline:0;
+}
+.properties-panel .property-number-field small{
+  flex:none;
+  color:var(--text-tertiary);
+  font:400 12px/16px Inter,system-ui,sans-serif;
+  letter-spacing:.02em;
+}
+.properties-panel .property-number-field:focus-within{
+  position:relative;
+  z-index:1;
+  border-radius:6px;
+  background:var(--bg-primary);
+  box-shadow:0 0 0 2px var(--bg-brand-subtle),inset 0 0 0 1px var(--border-brand);
+}
+.properties-panel .property-number-field input::-webkit-outer-spin-button,
+.properties-panel .property-number-field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.properties-panel .property-number-field input[type=number]{-moz-appearance:textfield}
+
+/* Property labels share the same compact secondary text treatment. */
+.properties-panel .property-stepper>span,
+.properties-panel .property-align>span,
+.properties-panel .property-select>span,
+.properties-panel .property-color>span,
+.properties-panel .property-visibility>span:not(.field-drag-handle),
+.properties-panel .property-section .field>span,
+.properties-panel .compact-content-field>span,
+.properties-panel .toggle-row>span,
+.properties-panel .team-selector>span,
+.properties-panel .template-source>span{
+  color:var(--text-secondary)!important;
+  font:500 12px/16px Inter,system-ui,sans-serif!important;
+}
+
+/* Text-input fields follow the Input component: label above field, 8px apart. */
+.properties-panel .property-section .field:has(input:not([type="checkbox"])),
+.properties-panel .property-section .field:has(textarea),
+.properties-panel .compact-content-field:has(input),
+.properties-panel .compact-content-field:has(textarea){
+  grid-template-columns:1fr;
+  align-items:stretch;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+/* Property controls use a consistent 12px vertical rhythm within each group. */
+.properties-panel .property-section{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.properties-panel .property-section>h3{margin:0}
+.properties-panel .property-section>.field,
+.properties-panel .property-section>.compact-content-field,
+.properties-panel .property-section>.property-stepper,
+.properties-panel .property-section>.property-align,
+.properties-panel .property-section>.property-visibility,
+.properties-panel .property-section>.property-color,
+.properties-panel .property-section>.property-select,
+.properties-panel .property-section>.card-style-options,
+.properties-panel .property-section>.card-template-note{margin:0!important}
+
+/* Outmarket Switch — used by the property visibility controls. */
+.properties-panel .toggle-row i{
+  box-sizing:border-box;
+  width:36px;
+  height:20px;
+  padding:2px;
+  border-radius:24px;
+  background:var(--bg-tertiary);
+  transition:background-color .15s,box-shadow .15s;
+}
+.properties-panel .toggle-row i:after{
+  top:2px;
+  left:2px;
+  width:16px;
+  height:16px;
+  background:var(--bg-primary);
+  box-shadow:0 1.4px 2.8px rgba(0,0,0,.20),inset 0 -.7px .7px rgba(0,0,0,.10);
+}
+.properties-panel .toggle-row:hover input:not(:checked)+i{background:#e7ebee}
+.properties-panel .toggle-row:hover input:checked+i{background:#8375f4}
+.properties-panel .toggle-row input:checked+i{background:var(--bg-brand-base)}
+.properties-panel .toggle-row input:checked+i:after{transform:translateX(16px)}
+.properties-panel .toggle-row input:focus-visible+i{box-shadow:0 0 0 2px var(--bg-primary),0 0 0 4px #8375f4}
+.properties-panel .toggle-row input:disabled+i{background:var(--bg-disabled)}
+.properties-panel .toggle-row input:disabled+i:after{box-shadow:none}
+
+/* Outmarket List: compact builder adaptations of the shared List component.
+   Both lists retain the component's 8px radius, 12px rhythm, selected
+   overlay surface, and 14px medium title while fitting a tool sidebar. */
+.left-panel .structure-list{display:grid;gap:4px;padding:4px 0 12px}
+.left-panel .structure-row{width:calc(100% - 48px);min-height:40px;height:auto;margin:0 24px;padding:8px 12px 8px calc(12px + var(--level) * 16px);gap:12px;border-radius:8px;color:var(--text-primary);font:500 14px/20px Inter,system-ui,sans-serif}
+.left-panel .structure-row:hover{background:var(--bg-secondary)}
+.left-panel .structure-row.is-selected{background:var(--bg-brand-muted);color:var(--text-primary);font-weight:500}
+.left-panel .structure-row.is-hidden{color:var(--text-tertiary)}
+.left-panel .structure-row__branch{display:grid;place-items:center;flex:none;width:16px;color:var(--icon-secondary);font:400 14px/16px Inter,system-ui,sans-serif}
+.left-panel .structure-row__branch .lucide{width:16px!important;height:16px!important}
+.left-panel .structure-row__eye{display:grid;place-items:center;flex:none;width:24px;height:24px;margin-left:auto;padding:0;color:var(--icon-secondary)}
+.left-panel .structure-row.is-selected .structure-row__eye{color:var(--icon-secondary)}
+.left-panel .members-list{display:grid;gap:4px;padding:8px 24px 4px}
+.left-panel .member-row{min-height:40px;height:auto;margin:0;padding:8px;gap:12px;border-radius:8px;color:var(--text-primary);font:500 14px/20px Inter,system-ui,sans-serif}
+.left-panel .member-row:hover{background:var(--bg-secondary)}
+.left-panel .member-row.is-selected{background:var(--bg-brand-muted)}
+.left-panel .member-avatar{width:24px;height:24px;color:var(--text-secondary);font:500 10px/16px Inter,system-ui,sans-serif}
+.left-panel .member-row__name{color:inherit;font:inherit}
+.left-panel .member-row__name.is-placeholder{color:var(--text-tertiary)}
+.left-panel .member-menu{display:grid;place-items:center;flex:none;width:24px;height:24px;margin-left:auto;padding:0;border-radius:4px;color:var(--icon-secondary)}
+.left-panel .member-menu:hover{background:var(--bg-tertiary);color:var(--icon-primary)}
+.left-panel .member-row:not(:hover):not(.is-selected) .member-menu{visibility:hidden}
+.left-panel .member-popover{right:0;top:36px;width:172px;padding:4px;border-color:var(--border-primary);border-radius:8px}
+.left-panel .member-popover button{min-height:32px;padding:6px 8px;border-radius:6px;color:var(--text-primary);font:400 14px/20px Inter,system-ui,sans-serif}
+.left-panel .member-popover button:hover{background:var(--bg-secondary)}
+.left-panel .member-popover .remove{color:var(--text-danger-base)}
+
+/* Card avatar placement. This is one shared card-template decision, so the
+   layout is applied uniformly to every member card on the Letter page. */
+.avatar-position-control{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;background:var(--bg-tertiary)}
+.avatar-position-control .segmented-control__segment{width:100%;font-size:12px}
+.avatar-range{display:grid;grid-template-columns:minmax(0,1fr) var(--property-control-width,140px);align-items:center;gap:10px}
+.avatar-range>span{color:var(--text-secondary);font:500 12px/16px Inter,system-ui,sans-serif}
+.avatar-range__control{display:flex;align-items:center;gap:4px;width:var(--property-control-width,140px);min-width:0}
+.avatar-range .property-number-field{flex:none;width:66px;height:32px;padding:0 8px;background:var(--bg-tertiary);border-radius:8px}
+.avatar-range .property-number-field input{height:32px;padding:6px 0;text-align:left}
+.avatar-range input[type=range]{width:70px;min-width:0;height:16px;margin:0;accent-color:var(--bg-brand-base);cursor:pointer}
+.team-page__content--figma .member-card.is-avatar-left{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1fr);
+  column-gap:12px;
+  align-items:start;
+}
+.team-page__content--figma .member-card.is-avatar-left>.member-card__photo{
+  grid-column:1;
+  grid-row:1 / span 7;
+  align-self:start;
+  margin-bottom:0;
+}
+.team-page__content--figma .member-card.is-avatar-left>:not(.member-card__photo){
+  grid-column:2;
+}
+
+/* Updated builder sidebar — direct translation of the 240px Structure / Members
+   panel. The two regions intentionally use different horizontal insets: the
+   section and selector use 24px; compact lists use 8–12px breathing room. */
+.builder{grid-template-columns:260px minmax(500px,1fr) 300px}
+.left-panel{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  overflow:hidden;
+  border-right:1px solid var(--border-primary);
+  background:var(--bg-primary);
+}
+.left-panel .section-title__note{display:none}
+.left-panel .section-title{
+  min-height:44px;
+  padding:16px 24px 8px;
+  color:var(--text-primary);
+  font:500 14px/20px Inter,system-ui,sans-serif;
+  letter-spacing:0;
+  text-transform:none;
+}
+.left-panel .structure-section{
+  flex:none;
+  padding:0 0 8px;
+  border-bottom:1px solid var(--border-primary);
+}
+.left-panel .structure-list{
+  display:grid;
+  gap:4px;
+  padding:0 8px;
+}
+.left-panel .structure-row{
+  width:100%;
+  box-sizing:border-box;
+  min-height:32px;
+  height:32px;
+  margin:0;
+  padding:4px 8px 4px calc(8px + var(--level) * 24px);
+  gap:8px;
+  border-radius:8px;
+  color:var(--text-primary);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+}
+.left-panel .structure-row[data-structure="page"]{
+  display:flex;
+  align-self:stretch;
+  min-height:32px;
+  height:32px;
+  padding:0 8px 0 8px;
+  align-items:center;
+  gap:8px;
+}
+.left-panel .structure-row[data-structure="heading"],
+.left-panel .structure-row[data-structure="subhead"],
+.left-panel .structure-row[data-structure="description"],
+.left-panel .structure-row[data-structure="grid"]{
+  display:flex;
+  align-self:stretch;
+  padding:4px 8px 4px 32px;
+  align-items:center;
+  gap:8px;
+}
+
+/* Figma Structure section: the header and first-level rows use an 8px
+   smaller left inset than the surrounding panel content. */
+.left-panel .structure-section > .section-title{padding-left:16px}
+.left-panel .structure-row__branch{width:16px;height:16px;color:var(--icon-secondary)}
+.left-panel .structure-row__branch .lucide{width:16px!important;height:16px!important;stroke-width:2!important}
+.left-panel .structure-row__label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.left-panel .structure-row.is-selected{background:var(--bg-brand-subtle);color:var(--text-primary)}
+.left-panel .structure-row:hover{background:var(--bg-secondary)}
+.left-panel .structure-row.is-selected:hover{background:var(--bg-brand-subtle)}
+.left-panel .structure-row.is-hidden{color:var(--text-placeholder)}
+.left-panel .structure-row__eye{
+  display:flex;
+  width:24px;
+  height:24px;
+  margin:-4px -4px -4px auto;
+  justify-content:center;
+  align-items:center;
+  gap:var(--sds-size-space-200,8px);
+  color:var(--icon-secondary);
+  opacity:0;
+  transition:opacity .12s ease;
+}
+.left-panel .structure-row__eye .lucide{width:16px!important;height:16px!important}
+.left-panel .structure-row.is-selected .structure-row__eye{color:var(--icon-secondary)}
+.left-panel .structure-row:hover .structure-row__eye,
+.left-panel .structure-row:focus-within .structure-row__eye,
+.left-panel .structure-row.is-hidden .structure-row__eye{opacity:1}
+
+.left-panel .members-section{
+  display:flex;
+  flex:1 1 auto;
+  min-height:0;
+  flex-direction:column;
+  padding:0;
+}
+.left-panel .members-section>.section-title{min-height:36px;flex:none;padding:16px 24px 0}
+.left-panel .team-selector-control{position:relative;flex:none;margin:12px 24px 8px}
+.left-panel .team-selector-toggle{width:100%;height:32px;min-height:32px;padding:6px 12px;border:1px solid #d0d5dd;border-radius:8px;background:var(--bg-primary);color:var(--text-secondary);font:500 14px/20px Inter,system-ui,sans-serif}
+.left-panel .team-selector-toggle #active-team-name{font-weight:400}
+.left-panel .team-selector-toggle:hover{border-color:#d0d5dd;background:var(--bg-secondary)}
+.left-panel .team-selector-toggle .lucide{width:16px!important;height:16px!important}
+.left-panel .team-selector-menu{top:calc(100% + 4px);right:0;left:0}
+.left-panel .members-list{
+  display:grid;
+  align-content:start;
+  gap:0;
+  min-height:0;
+  flex:1 1 auto;
+  overflow:auto;
+  padding:0 12px 12px;
+  scrollbar-width:thin;
+  scrollbar-color:transparent transparent;
+}
+.left-panel .members-list::-webkit-scrollbar{width:8px}
+.left-panel .members-list::-webkit-scrollbar-track{background:transparent}
+.left-panel .members-list::-webkit-scrollbar-thumb{border:2px solid transparent;border-radius:999px;background:transparent;background-clip:padding-box}
+.left-panel .members-section:hover .members-list,
+.left-panel .members-section:focus-within .members-list{scrollbar-color:#b7bdc8 transparent}
+.left-panel .members-section:hover .members-list::-webkit-scrollbar-thumb,
+.left-panel .members-section:focus-within .members-list::-webkit-scrollbar-thumb{background-color:#b7bdc8}
+.left-panel .member-row{
+  min-height:48px;
+  margin:0;
+  padding:8px 12px;
+  gap:12px;
+  border-radius:8px;
+  color:var(--text-primary);
+}
+.left-panel .member-row:hover{background:var(--bg-secondary)}
+.left-panel .member-row.is-selected{background:var(--bg-brand-subtle)}
+.left-panel .member-avatar{
+  width:32px;
+  height:32px;
+  overflow:hidden;
+  background:var(--avatar);
+  color:var(--text-secondary);
+  font:500 10px/16px Inter,system-ui,sans-serif;
+}
+.left-panel .member-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+.left-panel .member-row__content{display:grid;min-width:0;gap:2px}
+.left-panel .member-row__name{overflow:hidden;color:inherit;font:500 14px/20px Inter,system-ui,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.left-panel .member-row__title{overflow:hidden;color:var(--text-secondary);font:400 12px/16px Inter,system-ui,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.left-panel .member-row__name.is-placeholder,.left-panel .member-row__title.is-placeholder{color:var(--text-tertiary)}
+.left-panel .member-menu{width:24px;height:24px;margin-left:auto;color:var(--icon-secondary)}
+.left-panel .member-menu .lucide{width:16px!important;height:16px!important}
+.left-panel .member-row:not(:hover):not(.is-selected) .member-menu{visibility:hidden}
+.left-panel .member-popover{right:8px;top:40px}
+.left-panel .add-member-wrap{
+  display:flex;
+  flex:none;
+  min-height:64px;
+  padding:16px 12px;
+  background:linear-gradient(to top,rgba(255,255,255,1) 50%,rgba(255,255,255,.2));
+  backdrop-filter:blur(2px);
+}
+.left-panel .add-member{
+  flex:none;
+  width:100%;
+  height:32px;
+  min-height:32px;
+  margin:0;
+  border:1px solid var(--border-primary);
+  border-radius:8px;
+  color:var(--text-secondary);
+}
+.left-panel .add-member:hover{border-color:var(--border-primary);background:var(--bg-secondary);color:var(--text-primary)}
+.left-panel .add-member .lucide{width:16px!important;height:16px!important}
+.left-panel .team-save-control{
+  position:relative;
+  flex:none;
+  padding:0 12px 16px;
+}
+.left-panel .team-save-control>#team-save-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:32px;
+  min-height:32px;
+  padding:8px 12px;
+  gap:4px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--text-brand-base,#6a56f0);
+  font:500 14px/20px Inter,system-ui,sans-serif;
+  white-space:nowrap;
+  transition:background-color .15s,color .15s;
+}
+.left-panel .team-save-control>#team-save-toggle:hover{
+  background:var(--bg-brand-muted);
+  color:var(--text-brand-base-hover,#5639ec);
+}
+.left-panel .team-save-control>#team-save-toggle:active{background:var(--bg-brand-subtle)}
+.left-panel .team-save-control>#team-save-toggle:focus-visible{
+  outline:0;
+  box-shadow:var(--action-focus-ring);
+}
+.left-panel .team-save-control>#team-save-toggle .lucide{width:16px!important;height:16px!important}
+.left-panel .team-save-menu{
+  position:absolute;
+  right:auto;
+  bottom:calc(100% + 4px);
+  left:0;
+  z-index:20;
+  width:280px;
+  max-width:calc(100vw - 32px);
+  overflow:hidden;
+  padding:4px;
+  border:1px solid var(--border-primary);
+  border-radius:12px;
+  background:var(--bg-primary);
+  box-shadow:0 4px 8px -2px rgba(10,13,18,.10),0 2px 4px -2px rgba(10,13,18,.06);
+}
+.left-panel .team-save-menu:not([hidden]){display:block}
+.left-panel .team-save-menu.is-open:not([hidden]){
+  display:block!important;
+  visibility:visible!important;
+  pointer-events:auto;
+}
+.left-panel .team-save-menu button{
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-height:40px;
+  gap:8px;
+  padding:10px 10px 10px 12px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--text-secondary);
+  font:500 14px/20px Inter,system-ui,sans-serif;
+  text-align:left;
+}
+.left-panel .team-save-menu button .lucide{display:none}
+.left-panel .team-save-menu button:hover{background:var(--bg-brand-muted);color:var(--text-primary)}
+.left-panel .team-save-menu button:hover .lucide{color:var(--icon-primary)}
+.left-panel .member-actions{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  flex:none;
+  padding:16px;
+  background:linear-gradient(to top,rgba(255,255,255,1) 50%,rgba(255,255,255,.2));
+  /* Keep the save menu free to escape the panel. A backdrop-filter creates a
+     containing block for fixed descendants and clips the menu at the canvas. */
+  backdrop-filter:none;
+  overflow:visible;
+}
+.left-panel .member-actions .add-member-wrap{
+  min-height:32px;
+  padding:0;
+  background:transparent;
+  backdrop-filter:none;
+  overflow:visible;
+}
+.left-panel .member-actions .add-member{
+  width:100%;
+  margin:0;
+}
+.left-panel .member-actions .team-save-control{
+  width:100%;
+  padding:0;
+}
+
+/* Scrollbars remain available for keyboard and pointer scrolling, but only
+   reveal their thumb while the matching scroll region is in use. */
+*{
+  scrollbar-width:thin;
+  scrollbar-color:transparent transparent;
+}
+*::-webkit-scrollbar{width:8px;height:8px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{
+  border:2px solid transparent;
+  border-radius:999px;
+  background:transparent;
+  background-clip:padding-box;
+}
+*:hover,*:focus-within{scrollbar-color:#b7bdc8 transparent}
+*:hover::-webkit-scrollbar-thumb,*:focus-within::-webkit-scrollbar-thumb{background-color:#b7bdc8}
+
+/* The builder itself is pinned to the viewport. Only the canvas, properties,
+   template preview, and roster list own scrollable content. */
+html,body{width:100%;height:100%;min-height:0;overflow:hidden}
+.figma-shell{height:100dvh;min-height:0;overflow:hidden}
+.figma-shell .builder{height:100%;min-height:0}
+.figma-shell .properties-panel{overflow:hidden}
+.figma-shell .properties-scroll{flex:1 1 auto;min-height:0;overflow:auto}
+
+/* Popovers are measured and placed relative to the viewport so panel overflow
+   never clips them. Color controls prefer opening to the left of the trigger. */
+.color-picker.is-viewport-popover,
+.team-selector-menu.is-viewport-popover,
+.member-popover.is-viewport-popover,
+.team-save-menu.is-viewport-popover{position:fixed!important;right:auto!important;bottom:auto!important;z-index:1000!important;display:block!important;visibility:visible!important;pointer-events:auto}
+.team-save-menu.is-viewport-popover{
+  width:280px;
+  max-width:calc(100vw - 32px);
+  overflow:hidden;
+  padding:4px;
+  border:1px solid var(--border-primary);
+  border-radius:12px;
+  background:var(--bg-primary);
+  box-shadow:0 4px 8px -2px rgba(10,13,18,.10),0 2px 4px -2px rgba(10,13,18,.06);
+}
+.team-save-menu.is-viewport-popover button{
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-height:40px;
+  padding:10px 10px 10px 12px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--text-secondary);
+  font:500 14px/20px Inter,system-ui,sans-serif;
+  text-align:left;
+}
+.team-save-menu.is-viewport-popover button .lucide{display:none}
+.team-save-menu.is-viewport-popover button:hover{background:var(--bg-brand-muted);color:var(--text-primary)}
+
+/* Canvas selection uses the same 2px accent treatment as the focused member
+   card. Outline prevents text and grid layouts from shifting when selected. */
+.team-page__content--figma .is-selected-element,
+.team-page__content--figma .member-card.is-member-selected{
+  position:relative;
+  z-index:1;
+  outline:1px solid var(--border-brand);
+  outline-offset:0;
+  border-radius:0;
+}
+.team-page__content--figma .team-page__heading.is-selected-element,
+.team-page__content--figma .team-page__description.is-selected-element,
+.team-page__content--figma .team-page__brand.is-selected-element{outline-offset:0}
+.team-page__content--figma [data-card-field].is-selected-element{
+  position:relative;
+  z-index:2;
+  outline:1px solid var(--border-brand);
+  outline-offset:0;
+  border-radius:0;
+}
+
+/* The parent card clips its contents for the fixed Letter canvas. Let a
+   selected child paint its 1px outline without cropping at the card edge. */
+.team-page__content--figma .member-card:has([data-card-field].is-selected-element){
+  overflow:visible;
+}
+
+/* Properties panel spacing and title follow the shared panel spec. */
+.properties-panel .properties-head{
+  padding:16px;
+}
+.properties-panel .properties-head h2{
+  color:var(--text-primary);
+  font-size:14px;
+  font-weight:500;
+  line-height:20px;
+}
+.properties-panel .properties-scroll{
+  padding:0 16px 16px;
+}
+
+/* Color values use the same filled-control typography as numeric values. */
+.properties-panel .property-color-trigger{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  height:32px;
+  padding:0 8px;
+  text-align:left;
+}
+.properties-panel .property-color-trigger code{
+  color:var(--text-primary);
+  font:400 14px/20px Inter,system-ui,sans-serif;
+}
+.properties-panel .property-color-trigger small{
+  margin-left:auto;
+  color:var(--text-tertiary);
+  font:400 12px/16px Inter,system-ui,sans-serif;
+}
+
+.properties-panel .compact-content-field input{
+  padding:6px 12px;
+}
+
+/* Team picker menu follows the Figma menu surface and intentionally extends
+   beyond its compact selector trigger. */
+.left-panel .team-selector-menu{
+  right:auto;
+  left:0;
+  width:312px;
+  padding:4px;
+  border:1px solid var(--border-primary);
+  border-radius:12px;
+  background:var(--bg-primary);
+  box-shadow:0 4px 8px -2px rgba(10,13,18,.10),0 2px 4px -2px rgba(10,13,18,.06);
+}
+.left-panel .team-selector-menu button{
+  display:flex;
+  align-items:center;
+  min-height:60px;
+  padding:12px;
+  border-radius:8px;
+  color:var(--text-primary);
+}
+.left-panel .team-selector-menu button:hover,
+.left-panel .team-selector-menu button.is-active{
+  background:var(--bg-brand-muted);
+  color:var(--text-primary);
+}
+.left-panel .team-selector-menu__content{
+  display:grid;
+  min-width:0;
+  gap:2px;
+  text-align:left;
+}
+.left-panel .team-selector-menu__content strong{
+  overflow:hidden;
+  color:var(--text-primary);
+  font:500 14px/20px Inter,system-ui,sans-serif;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.left-panel .team-selector-menu__content small{
+  color:var(--text-secondary);
+  font:400 12px/16px Inter,system-ui,sans-serif;
+}
+.left-panel .team-selector-menu button>.lucide{
+  flex:none;
+  width:16px!important;
+  height:16px!important;
+  margin-left:auto;
+  color:var(--icon-brand);
+}
+
+/* Member order can be changed directly from the roster. The grip stays quiet
+   until the row is hovered/focused, while the drop rule makes the insertion
+   point explicit during a drag. */
+.left-panel .member-drag-handle{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:24px;
+  height:24px;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:4px;
+  background:transparent;
+  color:var(--icon-secondary);
+  cursor:grab;
+  opacity:0;
+  transition:opacity .12s,background-color .12s;
+}
+.left-panel .member-drag-handle:active{cursor:grabbing}
+.left-panel .member-drag-handle:hover,
+.left-panel .member-drag-handle:focus-visible{background:var(--bg-tertiary);color:var(--icon-primary);opacity:1;outline:0}
+.left-panel .member-drag-handle .lucide{width:16px!important;height:16px!important}
+.left-panel .member-row:hover .member-drag-handle,
+.left-panel .member-row:focus-within .member-drag-handle,
+.left-panel .member-row.is-selected .member-drag-handle{opacity:1}
+.left-panel .member-row.is-dragging{opacity:.45}
+.left-panel .member-row.is-drop-before::before,
+.left-panel .member-row.is-drop-after::after{
+  position:absolute;
+  right:8px;
+  left:8px;
+  height:2px;
+  border-radius:99px;
+  background:var(--border-brand);
+  content:'';
+  pointer-events:none;
+}
+.left-panel .member-row.is-drop-before::before{top:-1px}
+.left-panel .member-row.is-drop-after::after{bottom:-1px}
+
+/* Figma member section: compact roster with a visible reorder affordance. */
+.left-panel .structure-section{border-bottom:0}
+
+/* Keep the two left-panel groups balanced while allowing each list to scroll
+   without moving the other group's controls. */
+.left-panel .structure-section{
+  display:flex;
+  flex:1 1 0;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+}
+.left-panel .structure-section .section-title,
+.left-panel .members-section .section-title{flex:none}
+.left-panel .structure-list{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:auto;
+  scrollbar-width:thin;
+  scrollbar-color:transparent transparent;
+}
+.left-panel .structure-section:hover .structure-list,
+.left-panel .structure-section:focus-within .structure-list{scrollbar-color:#b7bdc8 transparent}
+.left-panel .structure-list::-webkit-scrollbar{width:8px}
+.left-panel .structure-list::-webkit-scrollbar-track{background:transparent}
+.left-panel .structure-list::-webkit-scrollbar-thumb{
+  border:2px solid transparent;
+  border-radius:999px;
+  background:transparent;
+  background-clip:padding-box;
+}
+.left-panel .structure-section:hover .structure-list::-webkit-scrollbar-thumb,
+.left-panel .structure-section:focus-within .structure-list::-webkit-scrollbar-thumb{background-color:#b7bdc8}
+
+.left-panel .members-section{flex:1 1 0}
+.left-panel .members-section{border-top:1px solid var(--border-primary)}
+.left-panel .members-section>.section-title{
+  min-height:auto;
+  padding:16px 16px 8px;
+  color:var(--text-primary);
+  font:500 14px/20px Inter,system-ui,sans-serif;
+}
+.left-panel .members-section>.section-title .count{
+  display:inline-flex;
+  align-items:center;
+  min-height:20px;
+  padding:2px 8px;
+  border-radius:4px;
+  background:var(--bg-brand-subtle);
+  color:var(--text-brand-base-hover);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+}
+.left-panel .team-selector-control{margin:0 16px 8px}
+.left-panel .members-list{
+  /* Keep roster rows aligned with the team selector while reserving room for the scrollbar. */
+  padding:0 0 12px 16px;
+}
+.left-panel .member-row{
+  width:calc(100% - 8px);
+  gap:8px;
+}
+.left-panel .member-drag-handle{
+  width:16px;
+  height:24px;
+  opacity:1;
+}
+.left-panel .member-drag-handle:hover,
+.left-panel .member-drag-handle:focus-visible{background:transparent;color:var(--icon-primary)}
+.left-panel .add-member-wrap{padding:16px}
+.left-panel .team-save-control{padding-right:16px;padding-left:16px}
+
+/* Shared dropdown treatment for every properties-panel select.  The Figma
+   SelectMenu uses a 32px field, 12px horizontal inset, 8px radius and a
+   trailing 16px chevron; keep native <select> semantics for keyboard users. */
+.properties-panel .field .select-control,
+.properties-panel .team-selector .select-control{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  width:100%;
+  min-width:0;
+}
+.properties-panel .field .select-control select,
+.properties-panel .team-selector .select-control select,
+.properties-panel .field>select,
+.properties-panel .team-selector>select{
+  width:100%;
+  height:32px;
+  min-height:32px;
+  min-width:0;
+  padding:6px 36px 6px 12px;
+  -webkit-appearance:none!important;
+  -moz-appearance:none!important;
+  appearance:none!important;
+  border:1px solid #d0d5dd!important;
+  border-radius:8px!important;
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+  font:400 14px/20px Inter,system-ui,sans-serif!important;
+  outline:0;
+  transition:background-color .15s,box-shadow .15s;
+}
+.properties-panel .field .select-control select:hover:not(:disabled),
+.properties-panel .team-selector .select-control select:hover:not(:disabled),
+.properties-panel .field>select:hover:not(:disabled),
+.properties-panel .team-selector>select:hover:not(:disabled){
+  border-color:#d0d5dd!important;
+  background:var(--bg-secondary)!important;
+}
+.properties-panel .field .select-control:focus-within select,
+.properties-panel .team-selector .select-control:focus-within select,
+.properties-panel .field>select:focus,
+.properties-panel .team-selector>select:focus{
+  border-color:var(--border-brand)!important;
+  background:var(--bg-primary)!important;
+  box-shadow:0 0 0 3px var(--bg-brand-subtle)!important;
+}
+.properties-panel .field .select-control>.lucide,
+.properties-panel .team-selector .select-control>.lucide{
+  position:absolute;
+  right:12px;
+  width:16px!important;
+  height:16px!important;
+  color:var(--icon-secondary);
+  pointer-events:none;
+}
+.properties-panel .field .select-control select:disabled,
+.properties-panel .team-selector .select-control select:disabled{
+  border-color:var(--border-secondary)!important;
+  background:var(--bg-disabled)!important;
+  color:var(--text-placeholder)!important;
+}
+.properties-panel select option:checked{
+  background:var(--bg-brand-muted);
+  color:var(--text-primary);
+}
+
+/* Shared custom select menu. The native select remains in the DOM for state
+   and form semantics, while the trigger/menu use the same surface treatment
+   as the Figma dropdown component. */
+.properties-panel .select-control[data-select-control]{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  min-width:0;
+  width:100%;
+}
+.properties-panel .property-select .select-control[data-select-control]{
+  width:140px;
+  flex:none;
+}
+.properties-panel .select-control[data-select-control] .select-control__native{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  min-height:0;
+  opacity:0;
+  pointer-events:none;
+}
+.properties-panel .select-control__trigger{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  height:32px;
+  min-height:32px;
+  gap:8px;
+  padding:6px 12px;
+  border:1px solid #d0d5dd;
+  border-radius:8px;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font:400 14px/20px Inter,system-ui,sans-serif;
+  text-align:left;
+  cursor:pointer;
+  transition:background-color .15s,box-shadow .15s,border-color .15s;
+}
+.properties-panel .select-control__trigger:hover:not(:disabled){
+  border-color:#d0d5dd;
+  background:var(--bg-secondary);
+}
+.properties-panel .select-control__trigger:focus-visible,
+.properties-panel .select-control.is-open .select-control__trigger{
+  border-color:var(--border-brand);
+  background:var(--bg-primary);
+  box-shadow:0 0 0 3px var(--bg-brand-subtle);
+  outline:0;
+}
+.properties-panel .select-control__trigger:disabled{
+  border-color:var(--border-secondary);
+  background:var(--bg-disabled);
+  color:var(--text-placeholder);
+  cursor:not-allowed;
+}
+.properties-panel .select-control__value{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.properties-panel .select-control__trigger>.lucide{
+  flex:none;
+  width:16px!important;
+  height:16px!important;
+  color:var(--icon-secondary);
+  pointer-events:none;
+}
+.properties-panel .select-menu{
+  position:fixed;
+  z-index:120;
+  width:224px;
+  min-width:224px;
+  max-height:min(240px,calc(100vh - 24px));
+  overflow:auto;
+  padding:4px;
+  border:1px solid var(--border-primary);
+  border-radius:12px;
+  background:var(--bg-primary);
+  box-shadow:0 8px 16px -4px rgba(10,13,18,.12),0 2px 6px -2px rgba(10,13,18,.08);
+}
+.properties-panel .select-menu__option{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  min-height:40px;
+  gap:8px;
+  padding:10px 12px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--text-primary);
+  font:400 14px/20px Inter,system-ui,sans-serif;
+  text-align:left;
+  cursor:pointer;
+}
+.properties-panel .select-menu__option:hover{background:var(--bg-secondary)}
+.properties-panel .select-menu__option.is-selected{background:var(--bg-brand-muted)}
+.properties-panel .select-menu__check{
+  display:grid;
+  place-items:center;
+  width:16px;
+  height:16px;
+  color:var(--icon-brand);
+}
+.properties-panel .select-menu__check .lucide{width:16px!important;height:16px!important}
+
+/* Shared card fields use the same list-row treatment as the builder roster:
+   roomy hit targets, a subtle hover surface, and a consistent drag affordance. */
+.properties-panel .property-section:has(> .card-template-note){
+  gap:0;
+}
+.properties-panel .property-section:has(> .card-template-note)>h3{
+  margin-bottom:8px;
+}
+.properties-panel .property-section:has(> .card-template-note)>.card-template-note{
+  margin-bottom:8px!important;
+}
+.properties-panel .property-visibility[data-field-order]{
+  display:flex;
+  align-items:center;
+  min-height:40px;
+  height:40px;
+  margin:0!important;
+  padding:8px 12px;
+  gap:12px;
+  border-radius:8px;
+  color:var(--text-primary);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+  transition:background-color .12s,opacity .12s;
+}
+.properties-panel .property-visibility[data-field-order]:hover{background:var(--bg-secondary)}
+.properties-panel .property-visibility[data-field-order]>.field-drag-handle{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:24px;
+  height:24px;
+  margin:0;
+  color:var(--icon-secondary);
+  cursor:grab;
+}
+.properties-panel .property-visibility[data-field-order]>.field-drag-handle .lucide{
+  width:16px!important;
+  height:16px!important;
+}
+.properties-panel .property-visibility[data-field-order]>span:not(.field-drag-handle){
+  min-width:0;
+  flex:1;
+  overflow:hidden;
+  color:inherit!important;
+  font:inherit!important;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.properties-panel .property-visibility[data-field-order]>span:not(.field-drag-handle) em{
+  margin-left:4px;
+  color:var(--text-tertiary);
+  font:400 10px/14px Inter,system-ui,sans-serif;
+}
+.properties-panel .property-visibility[data-field-order]>button{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:24px;
+  height:24px;
+  margin-left:auto;
+  padding:0;
+  border:0;
+  border-radius:4px;
+  background:transparent;
+  color:var(--icon-brand);
+}
+.properties-panel .property-visibility[data-field-order]>button.structure-row__eye{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:24px;
+  height:24px;
+  margin-left:auto;
+  padding:0;
+  border:0;
+  border-radius:4px;
+  background:transparent;
+  color:var(--icon-secondary);
+}
+.properties-panel .property-visibility[data-field-order]>button.structure-row__eye:hover{
+  background:var(--bg-secondary);
+  color:var(--icon-primary);
+}
+.properties-panel .property-visibility[data-field-order]>button.structure-row__eye .lucide{
+  width:16px!important;
+  height:16px!important;
+}
+.properties-panel .property-visibility--single{
+  display:flex;
+  align-items:center;
+  min-height:40px;
+  padding:8px 12px;
+  gap:12px;
+  border-radius:8px;
+  background:var(--bg-tertiary);
+  color:var(--text-primary);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+}
+.properties-panel .property-visibility--single>span{flex:1;color:var(--text-primary)!important}
+.properties-panel .property-visibility--single>button.structure-row__eye{
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  margin-left:auto;
+  padding:0;
+  border:0;
+  border-radius:4px;
+  background:transparent;
+  color:var(--icon-secondary);
+}
+.properties-panel .property-visibility--single>button.structure-row__eye:hover{background:var(--bg-secondary);color:var(--icon-primary)}
+.properties-panel .property-format{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:40px;
+  gap:12px;
+  color:var(--text-secondary);
+  font:500 12px/16px Inter,system-ui,sans-serif;
+}
+.properties-panel .property-format>span{flex:1}
+.properties-panel .property-format__controls{
+  display:flex;
+  align-items:center;
+  width:var(--property-control-width,140px);
+  min-height:32px;
+  padding:2px;
+  gap:2px;
+  border-radius:8px;
+  background:var(--bg-tertiary);
+}
+.properties-panel .property-format__controls button{
+  display:grid;
+  place-items:center;
+  flex:1;
+  width:32px;
+  height:28px;
+  padding:0;
+  border:0;
+  border-radius:6px;
+  background:transparent;
+  color:var(--icon-secondary);
+}
+.properties-panel .property-format__controls button:hover{background:var(--bg-secondary);color:var(--icon-primary)}
+.properties-panel .property-format__controls button.is-active{background:var(--bg-primary);box-shadow:0 1px 3px rgba(20,25,30,.14);color:var(--icon-brand)}
+.properties-panel .property-format__controls .lucide{width:16px!important;height:16px!important}
+
+/* Figma field-section structure: the scroll region is a neutral viewport;
+   spacing belongs to each section so sections can define their own rhythm. */
+.properties-panel .properties-scroll{
+  padding:0;
+}
+.properties-panel .property-section{
+  padding:16px;
+}
+
+/* The shared field list uses the compact 8px group from the Figma reference. */
+.properties-panel .property-section:has(> .card-template-note){
+  padding:8px;
+  gap:0;
+}
+.properties-panel .property-section:has(> .card-template-note)>h3{
+  padding:8px;
+  margin:0;
+}
+.properties-panel .property-section:has(> .card-template-note)>.card-template-note{
+  display:none;
+}
+.properties-panel .property-section:has(> .card-template-note)>.property-visibility[data-field-order]{
+  width:100%;
+  min-height:48px;
+  height:48px;
+  padding:12px;
+  gap:12px;
+  box-sizing:border-box;
+}
+.properties-panel .property-section:has(> .card-template-note)>.property-visibility[data-field-order]>.field-drag-handle{
+  width:16px;
+  height:16px;
+}
+.properties-panel .property-section:has(> .card-template-note)>.property-visibility[data-field-order].is-focused{
+  background:var(--bg-brand-muted);
+}
+
+/* Member image editing uses the same compact control treatment as the rest
+   of the properties panel. The preview is intentionally fixed at 64px. */
+.member-photo-editor{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 16px;
+}
+.properties-panel .member-edit__avatar{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:80px;
+  height:80px;
+  margin:0;
+  overflow:hidden;
+  border-radius:50%;
+  background:var(--avatar,#e7ebee);
+  color:var(--text-secondary);
+  font-size:16px;
+  font-weight:600;
+}
+.properties-panel .member-edit__avatar img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.member-photo-editor__actions{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+  min-width:0;
+}
+.member-photo-upload{
+  position:relative;
+  min-height:32px!important;
+  padding:0 12px!important;
+  font-size:14px!important;
+}
+.member-photo-upload input{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  cursor:pointer;
+}
+.member-photo-delete{
+  display:inline-flex;
+  padding:4px 0;
+  align-items:center;
+  gap:6px;
+  border:0;
+  background:transparent;
+  color:var(--status-danger);
+  font:400 14px/20px Inter,system-ui,sans-serif;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.member-photo-delete:hover{background:transparent;color:var(--text-danger-base,var(--status-danger));text-decoration:underline}
+
+/* Keep all alignment segmented controls on the neutral tertiary surface. */
+.property-align .alignment-toggle{background:var(--bg-tertiary)}
+
+/* Template editor prototype route */
+.template-demo-body{background:#f3f4f7;overflow:hidden}
+.template-demo-shell{height:100vh;min-height:0}
+.template-demo-shell>.figma-content{display:flex;flex-direction:column;min-width:0;min-height:0}
+.template-demo-header h1{display:flex;align-items:center;gap:10px}
+.template-demo-header h1 .lucide{width:18px;height:18px;color:var(--icon-secondary,#71798a)}
+.template-demo-header__actions{display:flex;align-items:center;gap:12px}
+.template-demo-header__actions>.icon-button{width:32px;height:32px;border:0;background:transparent}
+.template-demo-status{display:flex;align-items:center;gap:6px;color:#39a963;font-size:14px;white-space:nowrap}
+.template-demo-status .lucide{width:18px;height:18px}
+.template-help{height:42px;display:inline-flex;align-items:center;gap:9px;padding:0 16px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#596173;font-size:14px}
+.template-help .lucide{width:18px;height:18px}
+.template-help kbd{margin-left:10px;padding:2px 7px;border:1px solid #d9dfe7;border-radius:5px;color:#697286;font:12px Inter,sans-serif}
+.template-feedback{height:42px;padding:0 16px;border:1px solid #dfe4eb;border-radius:10px;background:#fff;color:#596173}
+.template-demo-workspace{position:relative;flex:1;min-height:0;overflow:auto;padding:32px 48px 48px;background:#f3f4f7}
+.template-block{width:min(1180px,100%);margin:0 auto;overflow:hidden;border:1px solid #e2e6ec;border-radius:12px;background:#fff;box-shadow:0 2px 8px rgba(27,29,29,.08)}
+.template-block__head{min-height:78px;padding:0 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #e7ebee}
+.template-block__drag{color:#97a0b4;display:grid;place-items:center}
+.template-block__badge{width:30px;height:30px;display:grid;place-items:center;border:1px solid #e2e6ec;border-radius:8px;color:#525b6a;font-weight:600}
+.template-block__title{color:#ed5b38;font-size:22px;font-weight:600}
+.template-block__pill{padding:7px 12px;border-radius:8px;background:#f1f2f5;color:#5c6372}
+.template-block__spacer{flex:1}
+.template-block__configure{height:40px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;border:1px solid #e2e6ec;border-radius:8px;background:#fff;color:#343b46;font-size:14px}
+.template-block__configure .lucide{width:18px;height:18px}
+.template-block__divider{width:1px;height:28px;background:#e5e8ed}
+.template-block__done{height:40px;padding:0 18px;display:inline-flex;align-items:center;gap:8px;border:0;border-radius:8px;background:#685ae2;color:#fff;font-size:14px;font-weight:600}
+.template-block__done .lucide{width:18px;height:18px}
+.template-block__toolbar{height:52px;display:flex;align-items:center;justify-content:center;gap:8px;border-bottom:1px solid #e7ebee;background:#fff}
+.template-block__toolbar .icon-button{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:#555d6c}
+.template-block__toolbar .icon-button:hover,.template-block__toolbar .icon-button.is-active{background:#f1efff;color:#685ae2}
+.template-block__toolbar .lucide{width:18px;height:18px}
+.template-toolbar-separator{width:1px;height:24px;background:#e7ebee;margin:0 6px}
+.template-zoom{min-width:48px;text-align:center;color:#454b57;font-size:14px}
+.template-block__canvas{min-height:620px;padding:24px;overflow:auto;background:#f8f9fb}
+.template-demo-team-page{width:min(920px,100%);margin:0 auto;background:#fff;box-shadow:0 1px 5px rgba(27,29,29,.1)}
+.template-demo-team-page .team-page__content{padding:56px 72px}
+.template-demo-team-page .members-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 70px}
+.template-demo-team-page .member-card{min-width:0;border:0;background:transparent;padding:0;text-align:center;box-shadow:none}
+.template-demo-team-page .member-card__photo{width:170px;height:170px;margin:0 auto 18px;border-radius:50%}
+.template-demo-team-page .member-card h3{font-size:24px;text-align:center}
+.template-demo-team-page .member-card p,.template-demo-team-page .member-card .member-card__contact{font-size:15px;text-align:center}
+.template-demo-tools{position:fixed;z-index:2;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;padding:14px 10px;border:1px solid #e3e7ec;border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(27,29,29,.12)}
+.template-demo-tools .icon-button{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:8px;background:transparent;color:#303641}
+.template-demo-tools .icon-button:hover{background:#f1efff;color:#685ae2}
+.template-demo-tools .lucide{width:20px;height:20px}
+.template-demo-runtime{display:none!important}
+body.template-demo-body .template-modal{width:min(1280px,calc(100vw - 48px));height:min(800px,calc(100vh - 48px));max-height:calc(100vh - 48px)}
+@media (max-width:900px){.template-demo-workspace{padding:20px}.template-demo-header__actions .template-demo-status,.template-demo-header__actions>.icon-button{display:none}.template-block__title{font-size:18px}.template-block__head{gap:8px;padding:0 12px}}
+
+/* The configure dialog is the same builder surface used by the team-page
+   route, presented as a modal over the template editor. Keep the three live
+   builder columns intact so structure, members, canvas, and properties all
+   share the same controller and interaction states. */
+body.template-demo-body .template-modal{
+  width:min(1420px,calc(100vw - 48px));
+  height:min(900px,calc(100vh - 48px));
+  max-height:calc(100vh - 48px);
+}
+body.template-demo-body .template-modal__body.template-modal__builder-body{
+  display:grid;
+  grid-template-columns:260px minmax(0,1fr) 280px;
+  min-height:0;
+  flex:1 1 auto;
+  overflow:hidden;
+  padding:0;
+  gap:0;
+  background:var(--bg-secondary,#f5f6f8);
+}
+body.template-demo-body .template-modal__left{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+  border-right:1px solid var(--border-primary,#e4e7ec);
+  background:var(--bg-primary,#fff);
+}
+body.template-demo-body .template-modal__left .structure-section{
+  display:flex;
+  flex:1 1 50%;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+  border-bottom:1px solid var(--border-primary,#e4e7ec);
+}
+body.template-demo-body .template-modal__left .structure-section .structure-list{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:auto;
+}
+body.template-demo-body .template-modal__left .members-section{
+  display:flex;
+  flex:1 1 50%;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+}
+body.template-demo-body .template-modal__left .members-list{flex:1 1 auto;min-height:0;overflow:auto}
+body.template-demo-body .template-modal__left .member-actions{flex:0 0 auto}
+body.template-demo-body .template-modal__canvas{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+  background:var(--bg-secondary,#f5f6f8);
+}
+body.template-demo-body .template-modal__canvas .canvas-scroll{
+  display:flex;
+  flex:1 1 auto;
+  align-items:flex-start;
+  justify-content:center;
+  min-height:0;
+  padding:28px;
+  overflow:auto;
+}
+body.template-demo-body .template-modal__canvas .page-sheet{
+  width:612px;
+  min-height:792px;
+  flex:0 0 auto;
+  margin:0 auto;
+  padding:0;
+}
+body.template-demo-body .template-modal__canvas #team-page{width:100%;height:100%}
+body.template-demo-body .template-modal__properties{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+  border-left:1px solid var(--border-primary,#e4e7ec);
+  background:var(--bg-primary,#fff);
+}
+body.template-demo-body .template-modal__properties .properties-scroll{flex:1 1 auto;min-height:0;overflow:auto}
+body.template-demo-body .template-modal__foot{flex:0 0 auto}
+body.template-demo-body .template-modal__foot{justify-content:flex-end}
+.template-demo-block-preview{display:grid;place-items:center;min-height:420px;overflow:hidden}
+.template-demo-block-preview .template-demo-team-page{max-width:920px}
+@media (max-width:900px){
+  body.template-demo-body .template-modal__body.template-modal__builder-body{grid-template-columns:240px minmax(0,1fr)}
+  body.template-demo-body .template-modal__properties{display:none}
+}
